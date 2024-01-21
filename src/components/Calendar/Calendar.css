@@ -1,0 +1,28 @@
+.calendar {
+    display: grid;
+    height: 100vh;
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 8fr 1fr;
+    grid-template-areas:
+      "header"
+      "body";
+    grid-gap: 3px;
+  }
+  
+  .calendarHeader {
+    grid-area: header;
+    background-color: blue;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    
+  }
+  
+  .calendarBody {
+    grid-area: body;
+    background-color: lightblue;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
