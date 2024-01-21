@@ -13,7 +13,7 @@ console.log(numOfDaysInMonth);
 console.log(firstDayOfMonthIndex);
 //Determine initial place in first row
 for (let i = 0; i < firstDayOfMonthIndex; i++){
-    calendarDays.push("");
+    calendarDays.push(0);
 }
 //Populate based on days in the month
 for (let i = 1; i <= numOfDaysInMonth; i++){
@@ -27,7 +27,7 @@ export default function Calendar(){
                 {weekdays.map((day) => (<h2>{day}</h2>))}
             </div>
             <div className="calendarBody">
-                {calendarDays.map((day) => (<h2>{day}</h2>))}
+                {calendarDays.map((day) => (<CalendarDayBox day={day}/>))}
             </div>
         </div>
     );
