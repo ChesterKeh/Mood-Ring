@@ -13,7 +13,7 @@ server.use(express.json());
 server.use(express.static(path.join(__dirname, "dist")));
 
 //routes block
-server.use("/event", eventRouter);
+server.use("/api/event", eventRouter);
 
 server.use("/api/journal", journalRouter);
 
