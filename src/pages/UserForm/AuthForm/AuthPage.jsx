@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import SignUpForm from "../../../components/UserForm/SignupForm/SignupForm";
 
 export default function AuthPage() {
