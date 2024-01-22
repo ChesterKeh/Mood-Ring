@@ -1,6 +1,7 @@
 import { Component } from "react";
 import "./SignupForm.css";
-import { signUp } from "./path/to/signUp";
+import { signUp } from "../../../utilities/user-service";
+import "./SignupForm.css";
 
 export default class SignUpForm extends Component {
   state = {
@@ -9,6 +10,32 @@ export default class SignUpForm extends Component {
     password: "",
     confirm: "",
     error: "",
+  };
+
+  handleChange = (evt) => {
+    this.setState({
+      [evt.target.name]: evt.target.value,
+      error: "",
+    });
+  };
+
+  handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      // await postData("/api/users", formData);
+      const token = await signUp(this.state);
+
+      if (token.error) {
+        this.setState({ error: token.error });
+      } else {
+        localStorage.setItem("token", token.token);
+      }
+    } catch (e) {
+      const error = JSON.stringify(e);
+      console.log("error", typeof error);
+      this.setState({ error });
+    }
   };
 
   render() {

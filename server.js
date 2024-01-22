@@ -4,6 +4,7 @@ require("./config/database");
 const express = require("express");
 const path = require("path");
 const eventRouter = require("./routes/eventRouter");
+const userRouter = require("./routes/userRoutes");
 
 const server = express();
 
@@ -13,6 +14,7 @@ server.use(express.static(path.join(__dirname, "dist")));
 
 //routes block
 server.use("/event", eventRouter);
+server.use("/users", userRouter);
 
 server.get("/test", (req, res) => {
   res.json({ hello: "world" });
