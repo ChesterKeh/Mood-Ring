@@ -1,83 +1,42 @@
-import { useState } from "react";
-import { Dropdown, useDropdownToggle, useDropdownMenu } from "react-overlays";
+import { useState, useEffect } from "react";
+import Select from 'react-select'
+import CreateEventModal from "../Modal/CreateEventModal";
+import CreateTaskModal from "../Modal/CreateTaskModal";
+import CreateJournalModal from "../Modal/CreateJournalModal";
 
 export default function CreateButton(){
-    const [show, setShow] = useState(false);
+    //https://www.npmjs.com/package/react-dropdown
+    const dropdownOptions = [
+        { value: 'Event', label: 'Event' },
+        { value: 'Journal', label: 'Journal' },
+        { value: 'Task', label: 'Task' }
+    ];
+    const [dropdownValue, setDropdownValue ] = useState(null); //static value
+    const [showCreateEvent, setShowCreateEvent] = useState(false);
+    const [showCreateJournal, setShowCreateJournal] = useState(false);
+    const [showCreateTask, setShowCreateTask] = useState(false);
 
-    const Menu = ({ role }) => {
-        const [props, { toggle, show }] = useDropdownMenu({
-          flip: true,
-          offset: [0, 8],
-        });
-        const display = show ? "flex" : "none";
-        return (
-          <div
-            {...props}
-            role={role}
-            className={`${display} w-48 py-2 flex-col shadow-lg border-gray-200 bg-white z-10 rounded`}
-          >
-            <button
-              type="button"
-              onClick={() => toggle(false)}
-              className="text-left hover:bg-brand-100 px-6 py-2">
-              Add Journal
-            </button>
-            <button
-              type="button"
-              onClick={() => toggle(false)}
-              className="text-left hover:bg-brand-100 px-6 py-2">
-              Add Event
-            </button>
-            <button
-              type="button"
-              onClick={() => toggle(false)}
-              className="text-left hover:bg-brand-100 px-6 py-2">
-              Add Task
-            </button>
-          </div>
-        );
-      };
-      
-    const Toggle = ({ id, children }) => {
-    const [props, { show, toggle }] = useDropdownToggle();
-    return (
-        <button
-        type="button"
-        className="btn"
-        id={id}
-        {...props}>
-            {children}
-        </button>
-    );
-    };
-      
-    const DropdownButton = ({
-        show,
-        onToggle,
-        drop,
-        alignEnd,
-        title,
-        role,
-    }) => (
-        <Dropdown
-            show={show}
-            onToggle={onToggle}
-            drop={drop}
-            alignEnd={alignEnd}
-            itemSelector="button:not(:disabled)">
-            <span>
-                <Toggle id="example-toggle">{title}</Toggle>
-                <Menu role={role} />
-            </span>
-        </Dropdown>
-    );
+    const onDropdownChange = (event) => {
+        switch (event.value){
+            case "Event":
+                setShowCreateEvent(true);
+                break;
+            case "Task":
+                setShowCreateTask(true);
+                break;
+            default:
+                setShowCreateJournal(true);
+                break;
+        }
+        setDropdownValue(null);
+    }
     
     return (
         <div>
-            <DropdownButton
-                show={show}
-                onToggle={(nextShow) => setShow(nextShow)}
-                title={`${show ? "Close" : "Add"} Items`}/>
+            <Select options={dropdownOptions} value={dropdownValue} onChange={onDropdownChange} placeholder="Create Item" />
+            <CreateEventModal showCreateEvent={showCreateEvent} setShowCreateEvent={setShowCreateEvent}/>
+            <CreateTaskModal showCreateTask={showCreateTask} setShowCreateTask={setShowCreateTask}/>
+            <CreateJournalModal showCreateJournal={showCreateJournal} setShowCreateJournal={setShowCreateJournal}/>
         </div>
     );
 };
