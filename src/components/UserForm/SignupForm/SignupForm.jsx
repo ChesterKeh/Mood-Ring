@@ -1,6 +1,6 @@
 import { Component } from "react";
 import "./SignupForm.css";
-import {signUp} from 
+import { signUp } from "./path/to/signUp";
 
 export default class SignUpForm extends Component {
   state = {
