@@ -15,7 +15,7 @@ server.use(express.static(path.join(__dirname, "dist")));
 server.use("/event", eventRouter);
 
 server.get("/test", (req, res) => {
-    res.json({ hello: "world" });
+  res.json({ hello: "world" });
 });
 
 //listen block
