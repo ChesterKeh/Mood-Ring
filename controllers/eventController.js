@@ -10,11 +10,11 @@ const getAll = async (req, res) => {
 };
 
 const getByDateAndUser = async (req, res) => {
-    try{
+    try {
         const { date } = req.params;
         const parsedDate = new Date(parseInt(date));
-        const startdate = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), 1);
-        const enddate = new Date(parsedDate.getFullYear(), parsedDate.getMonth() + 1, 0);
+        const startdate = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate(), 0, 0, 0); //0000HRS
+        const enddate = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate(), 23, 59, 59); //2359HRS
         const events = await Event.find({
             "calendarday": {
                 "$gte": startdate,
@@ -27,10 +27,30 @@ const getByDateAndUser = async (req, res) => {
     }
 }
 
-const createOne = async (req, res) => {
+const createEvent = async (req, res) => {
     const data = req.body;
-    try{
+    try {
         const event = await Event.create(data);
+        res.status(200).json({ event });
+    } catch (error){
+        res.status(500).json({ error });
+    }
+};
+
+const updateEvent = async (req, res) => {
+    const data = req.body;
+    try {
+        const event = await Event.updateOne(data);
+        res.status(200).json({ event });
+    } catch (error){
+        res.status(500).json({ error });
+    }
+}
+
+const deleteEvent = async (req, res) => {
+    const data = req.body;
+    try {
+        const event = await Event.deleteOne(data);
         res.status(200).json({ event });
     } catch (error){
         res.status(500).json({ error });
@@ -40,5 +60,7 @@ const createOne = async (req, res) => {
 module.exports = {
     getAll,
     getByDateAndUser,
-    createOne,
+    createEvent,
+    updateEvent,
+    deleteEvent
 }
