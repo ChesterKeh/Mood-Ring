@@ -13,7 +13,7 @@ export default function CreateTaskModal({ showCreateTask, setShowCreateTask }) {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await createTask(taskDatagit);
+    const response = await createTask(taskData);
     console.log(response);
   };
 
@@ -32,7 +32,7 @@ export default function CreateTaskModal({ showCreateTask, setShowCreateTask }) {
         <label>Add Task</label>
         <form onSubmit={handleSubmit}>
           <label>
-            Title: <input name="title" onClick={handleChange} />
+            Title: <input name="title" onChange={handleChange} />
           </label>
           <button type="submit">Add</button>
         </form>
