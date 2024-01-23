@@ -6,7 +6,7 @@ const create = async (req, res) => {
 
   const task = await Task.findById(id);
   task.subtask.push(data);
-  await movie.save();
+  await task.save();
   res.json({ msg: "subtask", data, task });
 };
 
