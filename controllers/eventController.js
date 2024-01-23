@@ -38,9 +38,13 @@ const createEvent = async (req, res) => {
 };
 
 const updateEvent = async (req, res) => {
-    const data = req.body;
+    const { _id } = req.body;
     try {
-        const event = await Event.updateOne(data);
+        const event = await Event.findById(_id);
+        event.eventname = req.body.eventname;
+        event.description = req.body.description;
+        event.calendarday = req.body.calendarday;
+        await event.save();
         res.status(200).json({ event });
     } catch (error){
         res.status(500).json({ error });
