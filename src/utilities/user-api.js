@@ -1,19 +1,17 @@
-export async function createUser(user) {
-  console.log(user);
-  const newItem = {
-    name: user.name,
-    email: user.email,
-    password: user.password,
-  };
-  console.log(newItem);
-  const response = await fetch("http://localhost:3000/api/users/create", {
+const BASE_URL = "/api/users";
+
+//* all the fetch for users should be here
+export async function signUp(userData) {
+  const res = await fetch(BASE_URL, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      // Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(newItem),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(userData),
   });
-  const jsonData = await response.json();
-  return jsonData;
+  if (res.ok) {
+    log("return json");
+    return res.json();
+  } else {
+    log("error in signup");
+    throw new Error("Invalid Sign Up");
+  }
 }
