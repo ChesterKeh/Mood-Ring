@@ -16,11 +16,19 @@ const monthEvents = response.events;
 
 //Determine initial place in first row
 for (let i = 0; i < firstDayOfMonthIndex; i++){
-    calendarDays.push(0);
+    calendarDays.push({"day": 0});
 }
 //Populate based on days in the month
 for (let i = 1; i <= numOfDaysInMonth; i++){
-    calendarDays.push(i);
+    const dayBox = {"day": i};
+    const dayEvents = [];
+    for (const event of monthEvents){
+        if (new Date(event["calendarday"]).getDate() === i){
+            dayEvents.push(event);
+        }
+    }
+    dayBox.events = dayEvents;
+    calendarDays.push(dayBox);
 }
 
 export default function Calendar(){
@@ -30,7 +38,7 @@ export default function Calendar(){
                 {weekdays.map((day) => (<h2>{day}</h2>))}
             </div>
             <div className="calendarBody">
-                {calendarDays.map((day) => (<CalendarDayBox day={day}/>))}
+                {calendarDays.map((day) => (<CalendarDayBox dayObj={day}/>))}
             </div>
             <CreateButton />
         </div>
