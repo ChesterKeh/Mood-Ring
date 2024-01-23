@@ -13,3 +13,17 @@ export async function createTask(taskData) {
     // throw new Error("Create Event Error");
   }
 }
+
+export async function createSubtask(subtaskData) {
+  const res = await fetch(BASE_URL + "/create/:id/subtask", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(subtaskData),
+  });
+  if (res.ok) {
+    return res.json();
+  } else {
+    return res;
+    // throw new Error("Create Event Error");
+  }
+}
