@@ -36,7 +36,7 @@ export default function CalendarDayBox({ date }){
         return (<label className="hidden">test</label>);
     } else{
         return (
-            <div>
+            <div className="scrollable">
                 <div onClick={boxShowSummary}>
                     <label>{day}</label>
                     <image visibility={showJournal}></image>
