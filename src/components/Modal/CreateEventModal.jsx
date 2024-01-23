@@ -31,9 +31,7 @@ export default function CreateEventModal({ showCreateEvent, setShowCreateEvent }
             eventDataArray.push(newEventData);
             currentDate.setDate(currentDate.getDate() + 1);
         }
-        console.log(eventDataArray);
         const response = await createEvent(eventDataArray);
-        console.log(response);
     }
 
     const handleChange = (event) => {
@@ -48,7 +46,7 @@ export default function CreateEventModal({ showCreateEvent, setShowCreateEvent }
             <div>
                 <label>Add Event</label>
                 <form onSubmit={handleSubmit}>
-                    <label>Event Name: <input name="name" onChange={handleChange}/></label><br/>
+                    <label>Event Name: <input name="eventname" onChange={handleChange}/></label><br/>
                     <label>Start Date: <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /></label><br/>
                     <label>End Date: <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} /></label><br/>
                     <label>

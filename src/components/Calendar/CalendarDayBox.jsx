@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { Modal } from "react-overlays";
+import CalendarDayBoxItem from "./CalendarDayBoxItem";
 
-export default function CalendarDayBox({ day }){
+export default function CalendarDayBox({ dayObj }){
     const [showJournal, setShowJournal] = useState("hidden");
     const [showSummary, setShowSummary] = useState(false);
+    const day = dayObj.day;
+    const events = dayObj.events;
 
     //For modal usage https://contactmentor.com/create-modal-react-js-overlay/
     const renderBackdrop = (props) => <div className="backdrop" {...props} />;
 
     const boxShowSummary = () =>{
-        setShowSummary(true);
-        //Add a spinner
-        //Load events based on day
+        if (Array.isArray(events) && events.length > 0){
+            setShowSummary(true);
+        }
     }
 
     const boxHideSummary = () => {
@@ -27,9 +30,7 @@ export default function CalendarDayBox({ day }){
                     <label>{day}</label>
                     <image visibility={showJournal}></image>
                     <div>
-                        <label>List 1</label>
-                        <label>List 1</label>
-                        <label>List 1</label>
+                        {events?.map((event) => (<label>{event.eventname}</label>))}
                     </div>
                 </div>
                 <Modal className="modal" 
@@ -38,6 +39,9 @@ export default function CalendarDayBox({ day }){
                        renderBackdrop={renderBackdrop}>
                     <div>
                         <label>Day: {day}</label>
+                        <div>
+                            {events?.map((event) => (<CalendarDayBoxItem item={event}/>))}
+                        </div>
                         <button onClick={boxHideSummary}>Close</button>
                     </div>
                 </Modal>
