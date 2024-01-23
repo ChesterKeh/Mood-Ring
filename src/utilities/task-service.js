@@ -24,6 +24,6 @@ export async function createSubtask(taskID, subtaskData) {
     return response;
   } catch (error) {
     console.error("Error creating subtask:", error);
-    throw error; // Re-throw the error to propagate it further if needed
+    throw error;
   }
 }
