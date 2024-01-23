@@ -4,10 +4,10 @@ require("./config/database");
 const express = require("express");
 const path = require("path");
 const eventRouter = require("./routes/eventRouter");
-const userRouter = require("./routes/userRoutes");
 const journalRouter = require("./routes/journalRouter");
 const taskRouter = require("./routes/taskRouter");
 const subtaskRouter = require("./routes/subtaskRouter");
+const userRouter = require("./routes/userRouter");
 
 const server = express();
 
@@ -17,7 +17,7 @@ server.use(express.static(path.join(__dirname, "dist")));
 
 //routes block
 server.use("/event", eventRouter);
-server.use("/users", userRouter);
+server.use("/api/users", userRouter);
 
 server.use("/api/event", eventRouter);
 

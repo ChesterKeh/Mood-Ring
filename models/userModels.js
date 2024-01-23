@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
-const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
-
-const SALT_ROUNDS = 6;
+const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema(
   {
@@ -29,6 +27,8 @@ const userSchema = new Schema(
     },
   }
 );
+
+const SALT_ROUNDS = 10;
 
 userSchema.pre("save", async function (next) {
   // 'this' is the user doc

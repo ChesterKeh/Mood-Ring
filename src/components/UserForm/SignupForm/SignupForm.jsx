@@ -5,10 +5,10 @@ import "./SignupForm.css";
 
 export default class SignUpForm extends Component {
   state = {
-    name: "",
-    email: "",
-    password: "",
-    confirm: "",
+    name: "asc",
+    email: "asc@asc",
+    password: "asc",
+    confirm: "asc",
     error: "",
   };
 
@@ -23,19 +23,28 @@ export default class SignUpForm extends Component {
     event.preventDefault();
 
     try {
-      // await postData("/api/users", formData);
-      const token = await signUp(this.state);
-
-      if (token.error) {
-        this.setState({ error: token.error });
-      } else {
-        localStorage.setItem("token", token.token);
-      }
-    } catch (e) {
-      const error = JSON.stringify(e);
-      console.log("error", typeof error);
-      this.setState({ error });
+      const { name, email, password } = this.state;
+      const formData = { name, email, password };
+      const user = await signUp(formData);
+      console.log(user);
+    } catch {
+      this.setState({ error: "Signup failed" });
     }
+
+    // try {
+    //   // await postData("/api/users", formData);
+    //   const token = await signUp(this.state);
+
+    //   if (token.error) {
+    //     this.setState({ error: token.error });
+    //   } else {
+    //     localStorage.setItem("token", token.token);
+    //   }
+    // } catch (e) {
+    //   const error = JSON.stringify(e);
+    //   console.log("error", typeof error);
+    //   this.setState({ error });
+    // }
   };
 
   render() {
