@@ -1,0 +1,35 @@
+.calendarPage {
+    display: grid;
+    height: 100vh;
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 8fr 1fr;
+    grid-template-areas:
+      "body"
+      "footer";
+    grid-gap: 3px;
+  }
+
+.calendarPageBody {
+    grid-area: body;
+    display: flex;
+}
+
+.calendarPageFooter {
+    grid-area: footer;
+    background-color: hotpink;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+      "footercol1"
+      "footercol2";
+}
+
+.calendarPageFooterCol1 {
+    grid-area: footercol1;
+}
+
+.calendarPageFooterCol2 {
+    grid-area: footercol2;
+}
