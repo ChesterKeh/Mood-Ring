@@ -6,6 +6,7 @@ const path = require("path");
 const eventRouter = require("./routes/eventRouter");
 const userRouter = require("./routes/userRoutes");
 const journalRouter = require("./routes/journalRouter");
+const taskRouter = require("./routes/taskRouter");
 
 const server = express();
 
@@ -20,6 +21,7 @@ server.use("/users", userRouter);
 server.use("/api/event", eventRouter);
 
 server.use("/api/journal", journalRouter);
+server.use("/api/task", taskRouter);
 
 server.get("/test", (req, res) => {
   res.json({ hello: "world" });

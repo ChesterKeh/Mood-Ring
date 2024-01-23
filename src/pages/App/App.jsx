@@ -14,27 +14,12 @@ function App() {
       <Navbar />
       <h1>Mood Ring V2</h1>
       <Routes>
-        <Route
-          path="/calendar"
-          element={<CalendarPage />}
-        />
-        <Route
-          path="/signup"
-          element={<SignupAuthPage />}
-        />
+        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/signup" element={<SignupAuthPage />} />
 
-        <Route
-          path="/login"
-          element={<LoginAuthPage />}
-        />
-        <Route
-          path="/calendar"
-          element={<CalendarPage />}
-        />
-        <Route
-          path="/journal"
-          element={<JournalPage />}
-        />
+        <Route path="/login" element={<LoginAuthPage />} />
+        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/journal" element={<JournalPage />} />
       </Routes>
     </>
   );
