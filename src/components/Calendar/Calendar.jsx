@@ -1,16 +1,19 @@
 import CalendarDayBox from "../Calendar/CalendarDayBox";
 import "../Calendar/Calendar.css";
+import CreateButton from "../CreateButton/CreateButton";
+import { getEventsByDate } from "../../utilities/event-service"
 
 const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const calendarDays = [];
 
-//Get first day of the month, populate list from that date
-const month = 1; //index starts from 0 -> Jan
-const year = 2024;
-const firstDayOfMonthIndex = new Date(year, month, 1).getDay(); //0 -> Sun
-const numOfDaysInMonth = new Date(year, month + 1, 0).getDate(); //https://stackoverflow.com/questions/1184334/get-number-days-in-a-specified-month-using-javascript
-console.log(numOfDaysInMonth);
-console.log(firstDayOfMonthIndex);
+//Load initial list based on current date
+const currentDate = new Date();
+const firstDayOfMonthIndex = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay(); //0 -> Sun
+const numOfDaysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate(); //https://stackoverflow.com/questions/1184334/get-number-days-in-a-specified-month-using-javascript
+
+const response = await getEventsByDate(currentDate);
+const monthEvents = response.events;
+
 //Determine initial place in first row
 for (let i = 0; i < firstDayOfMonthIndex; i++){
     calendarDays.push(0);
@@ -29,6 +32,7 @@ export default function Calendar(){
             <div className="calendarBody">
                 {calendarDays.map((day) => (<CalendarDayBox day={day}/>))}
             </div>
+            <CreateButton />
         </div>
     );
 
