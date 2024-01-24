@@ -25,7 +25,7 @@ export async function createSubtask(taskID, subtaskData) {
 }
 
 export async function updateTask(taskData) {
-  const response = await taskAPI.updateEvent(taskData);
+  const response = await taskAPI.updateTask(taskData);
   return response;
 }
 

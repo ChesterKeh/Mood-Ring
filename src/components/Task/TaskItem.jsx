@@ -1,9 +1,11 @@
 import { confirmAlert } from "react-confirm-alert";
 import { deleteTask } from "../../utilities/task-service";
+import { useState } from "react";
+import EditTaskModal from "../Modal/EditTaskModal";
 export default function TaskItem({ item }) {
+  const [showEdit, setShowEdit] = useState(false);
   const handleUpdate = (event) => {
-    event.preventDefault();
-    console.log("update");
+    setShowEdit(true);
   };
   const handleDelete = async () => {
     confirmAlert({
@@ -45,6 +47,12 @@ export default function TaskItem({ item }) {
       ))}
       <button onClick={handleUpdate}>edit</button>
       <button onClick={handleDelete}>delete</button>
+      <EditTaskModal
+        showEditTask={showEdit}
+        setShowEditTask={setShowEdit}
+        prevTask={item}
+      />
+
       <hr />
     </>
   );

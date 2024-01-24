@@ -1,11 +1,8 @@
 import { Component } from "react";
 // import "./SignupForm.css";
 import { signUp } from "../../../utilities/user-service";
-<<<<<<< HEAD
-=======
 import "./SignupForm.css";
 import { useNavigate } from "react-router-dom";
->>>>>>> 10742d70d5888f95fcba52f9379a859d2be617d1
 
 export default class SignUpForm extends Component {
   state = {
