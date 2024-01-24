@@ -21,7 +21,16 @@ export default function Task() {
         <div key={entry._id}>
           <h1>{entry.title}</h1>
           {entry.subtask.map((sub) => (
-            <p>{sub.item}</p>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "6px",
+              }}
+            >
+              <input type="checkbox" id={sub.item} name={sub.item} />
+              <label htmlFor={sub.item}>{sub.item}</label>
+            </div>
           ))}
           <hr />
         </div>
