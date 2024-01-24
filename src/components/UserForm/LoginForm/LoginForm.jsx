@@ -16,13 +16,21 @@ async function postData(url = "", data = {}) {
 export default function LoginForm({ setUser }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    console.log(event);
     const form = new FormData(event.target);
     const data = Object.fromEntries(form);
     // console.log(data);
-    const token = await postData("/api/users/login", data);
-    localStorage.setItem("token", token.token);
-    setUser(getUser({ user }));
+
+    try {
+      const token = await postData("/api/users/login", data);
+      localStorage.setItem("token", token.token);
+      console.log(token);
+      // Correct the setUser call here
+      setUser(getUser());
+    } catch (error) {
+      // console.error("An error occurred:", error);
+      // Handle the error (e.g., display an error message)
+    }
   };
 
   return (
@@ -42,7 +50,7 @@ export default function LoginForm({ setUser }) {
           <input name="password" />
         </label>
         <br />
-        <button>Login</button>
+        <button type="submit">Login</button>
       </fieldset>
     </form>
   );
