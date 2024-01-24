@@ -15,3 +15,4 @@ export async function signUp(userData) {
     throw new Error("Invalid Sign Up");
   }
 }
+

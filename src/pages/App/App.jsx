@@ -5,12 +5,14 @@ import { Route, Routes } from "react-router-dom";
 
 import JournalPage from "../JournalPage/JournalPage";
 import Navbar from "../../components/Navbar/Navbar";
-import SignupAuthPage from "../UserForm/AuthForm/SignupAuthPage";
-import LoginAuthPage from "../UserForm/AuthForm/LoginAuthPage";
+import SignupAuthPage from "../UserForm/AuthPage/SignupAuthPage";
+import LoginAuthPage from "../UserForm/AuthPage/LoginAuthPage";
 import { useState } from "react";
 import { getUser } from "../../utilities/user-service";
 
 function App() {
+  const [user, setUser] = useState({});
+
   return (
     <>
       <Navbar />
@@ -35,7 +37,7 @@ function App() {
 
         <Route
           path="/login"
-          element={<LoginAuthPage />}
+          element={<LoginAuthPage setUser={setUser} />}
         />
         <Route
           path="/calendar"

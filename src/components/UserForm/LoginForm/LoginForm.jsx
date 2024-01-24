@@ -1,5 +1,6 @@
 import { getUser } from "../../../utilities/user-service";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 async function postData(url = "", data = {}) {
   // Default options are marked with *
@@ -14,6 +15,7 @@ async function postData(url = "", data = {}) {
 }
 
 export default function LoginForm({ setUser }) {
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(event);
@@ -22,13 +24,17 @@ export default function LoginForm({ setUser }) {
     // console.log(data);
 
     try {
-      const token = await postData("/api/users/login", data);
-      localStorage.setItem("token", token.token);
-      console.log(token);
+      const res = await postData("/api/users/login", data);
+      localStorage.setItem("token", res.token);
+      console.log(res);
       // Correct the setUser call here
-      setUser(getUser());
+      setUser(data);
+      console.log(data);
+
+      
+      navigate("/calendar");
     } catch (error) {
-      // console.error("An error occurred:", error);
+      console.error("An error occurred:", error);
       // Handle the error (e.g., display an error message)
     }
   };
