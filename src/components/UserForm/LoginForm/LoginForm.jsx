@@ -1,4 +1,5 @@
-import { signUp } from "../../../utilities/user-service";
+import { getUser } from "../../../utilities/user-service";
+import { useState } from "react";
 
 async function postData(url = "", data = {}) {
   // Default options are marked with *
@@ -21,7 +22,7 @@ export default function LoginForm({ setUser }) {
     // console.log(data);
     const token = await postData("/api/users/login", data);
     localStorage.setItem("token", token.token);
-    setUser(signUp());
+    setUser(getUser({ user }));
   };
 
   return (

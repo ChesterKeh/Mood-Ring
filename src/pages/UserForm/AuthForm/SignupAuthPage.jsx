@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SignUpForm from "../../../components/UserForm/SignupForm/SignupForm";
 
-export default function SignupAuthPage() {
+export default function SignupAuthPage({ setUser }) {
   return (
     <main>
       <h1>AuthPage</h1>
-      <SignUpForm />
+      <SignUpForm setUser={setUser} />
 
       <p>
         {" "}
