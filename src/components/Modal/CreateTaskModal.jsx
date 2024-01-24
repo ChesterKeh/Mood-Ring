@@ -24,13 +24,18 @@ export default function CreateTaskModal({ showCreateTask, setShowCreateTask }) {
     setTaskData({ ...taskData, [task.target.name]: task.target.value });
   };
 
-  const handleSubtaskChange = (subtask) => {
-    setTaskData({
-      ...taskData,
-      subtask: [...taskData.subtask, { item: subtask.target.value }],
-    });
+  const handleSubtaskChange = (event, index) => {
+    const newSubtasks = [...taskData.subtask];
+    newSubtasks[index] = { item: event.target.value };
+    setTaskData({ ...taskData, subtask: newSubtasks });
   };
 
+  const addSubtaskField = () => {
+    setTaskData({
+      ...taskData,
+      subtask: [...taskData.subtask, { item: "" }],
+    });
+  };
   return (
     <Modal
       className="modal"
@@ -44,10 +49,19 @@ export default function CreateTaskModal({ showCreateTask, setShowCreateTask }) {
           <label>
             Title: <input name="title" onChange={handleChange} />
           </label>
-          <label>
-            Subtask: <input name="subtask" onChange={handleSubtaskChange} />
-            <input name="subtask" onChange={handleSubtaskChange} />
-          </label>
+          {taskData.subtask.map((subtask, index) => (
+            <label key={index}>
+              Subtask:{" "}
+              <input
+                name={`subtask-${index}`}
+                value={subtask.item}
+                onChange={(event) => handleSubtaskChange(event, index)}
+              />
+            </label>
+          ))}
+          <button type="button" onClick={addSubtaskField}>
+            Add Subtask
+          </button>
           <button type="submit">Add</button>
         </form>
         <button onClick={hideModal}>Close</button>
