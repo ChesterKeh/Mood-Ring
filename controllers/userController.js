@@ -30,10 +30,12 @@ const create = async (req, res) => {
   }
 
   try {
+    //creates the news update //
     const user = await User.create(data);
     const token = createJWT(user);
 
-    res.status(201).json({ token });
+    res.status(201).json({ token, user });
+    return token;
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -56,7 +58,7 @@ const login = async (req, res) => {
     }
 
     const token = createJWT(somebody);
-    res.json({ token });
+    res.json({ token, somebody });
   } catch (error) {
     res.status(500).json({ error });
   }

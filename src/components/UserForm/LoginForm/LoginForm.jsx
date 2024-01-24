@@ -1,7 +1,7 @@
-import { getUser } from "../../../utilities/user-service";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+//! try to put this at user-service/api //
 async function postData(url = "", data = {}) {
   // Default options are marked with *
   const response = await fetch(url, {
@@ -25,13 +25,14 @@ export default function LoginForm({ setUser }) {
 
     try {
       const res = await postData("/api/users/login", data);
-      localStorage.setItem("token", res.token);
       console.log(res);
+      localStorage.setItem("token", res.token);
       // Correct the setUser call here
-      setUser(data);
+
+      setUser(res.somebody);
+      console.log(setUser);
       console.log(data);
 
-      
       navigate("/calendar");
     } catch (error) {
       console.error("An error occurred:", error);

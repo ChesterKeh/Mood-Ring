@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Modal } from "react-overlays";
 import { getEventsByDate } from "../../utilities/event-service"
+import { getJournalsByDate } from "../../utilities/journal-api";
 import CalendarDayBoxItem from "./CalendarDayBoxItem";
 
 export default function CalendarDayBox({ date }){
     const [showJournal, setShowJournal] = useState("hidden");
     const [showSummary, setShowSummary] = useState(false);
     const [events, setEvents] = useState([]);
+    const [journals, setJournals] = useState([]);
     const day = date === null ? 0 : date.getDate();
 
     useEffect(() => {
@@ -14,16 +16,22 @@ export default function CalendarDayBox({ date }){
             const response = await getEventsByDate(date);
             setEvents(response.events);
         }
+        const getJournals = async () => {
+            const response = await getJournalsByDate(date);
+            setJournals(response.journals);
+        }
         if (date !== null){
             getEvents();
+            getJournals();
         }
-    });
+    }, [events, journals]);
 
     //For modal usage https://contactmentor.com/create-modal-react-js-overlay/
     const renderBackdrop = (props) => <div className="backdrop" {...props} />;
 
     const boxShowSummary = () =>{
-        if (Array.isArray(events) && events.length > 0){
+        if ((Array.isArray(events) && events.length > 0)
+            || (Array.isArray(journal) && journal.length > 0)){
             setShowSummary(true);
         }
     }
@@ -36,7 +44,7 @@ export default function CalendarDayBox({ date }){
         return (<label className="hidden">test</label>);
     } else{
         return (
-            <div className="scrollable">
+            <div>
                 <div onClick={boxShowSummary}>
                     <label>{day}</label>
                     <image visibility={showJournal}></image>
@@ -48,10 +56,14 @@ export default function CalendarDayBox({ date }){
                        show={showSummary} 
                        onHide={boxHideSummary} 
                        renderBackdrop={renderBackdrop}>
-                    <div>
+                    <div className="scrollableModal">
                         <label>Day: {day}</label>
                         <div>
-                            {events?.map((event) => (<CalendarDayBoxItem item={event}/>))}
+                            {events?.map((event) => (<CalendarDayBoxItem item={event} type={"event"}/>))}
+                        </div>
+                        <hr/>
+                        <div>
+                            {journals?.map((journal) => (<CalendarDayBoxItem item={journal} type={"journal"}/>))}
                         </div>
                         <button onClick={boxHideSummary}>Close</button>
                     </div>

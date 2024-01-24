@@ -3,29 +3,19 @@ import * as usersAPI from "./user-api";
 export async function signUp(userData) {
   //* data check / cleanup
 
-  const token = await usersAPI.signUp(userData);
-  localStorage.setItem("token", token);
-  return getUser;
-  // const userData = { ...formData };
-  // delete userData.error;
-  // delete userData.confirm;
-}
+  // ! does the same, clean up//
+  const res = await usersAPI.signUp(userData);
+  const token = res.token;
 
-export function getToken() {
-  const token = localStorage.getItem("token");
-  if (!token) return null;
+  console.log(res);
+  if (!res) {
+    return null;
+  }
   const payload = JSON.parse(atob(token.split(".")[1]));
-  // A JWT's exp is expressed in seconds, not milliseconds, so convert
   if (payload.exp < Date.now() / 1000) {
-    // Token has expired - remove it from localStorage
     localStorage.removeItem("token");
     return null;
   }
-  return token;
-}
-
-export function getUser() {
-  const token = getToken();
-  // If there's a token, return the user in the payload, otherwise return null
-  return token ? JSON.parse(atob(token.split(".")[1])).user : null;
+  localStorage.setItem("token", token);
+  return res.user;
 }

@@ -1,6 +1,11 @@
 import { Component } from "react";
 // import "./SignupForm.css";
 import { signUp } from "../../../utilities/user-service";
+<<<<<<< HEAD
+=======
+import "./SignupForm.css";
+import { useNavigate } from "react-router-dom";
+>>>>>>> 10742d70d5888f95fcba52f9379a859d2be617d1
 
 export default class SignUpForm extends Component {
   state = {
@@ -23,14 +28,19 @@ export default class SignUpForm extends Component {
     try {
       // await postData("/api/users", formData);
       console.log("Form data:", this.state);
-      const token = await signUp(this.state);
-      // this.props.setUser(user)
-
-      console.log("Response from signUp:", token);
-      if (token.error) {
-        this.setState({ error: token.error });
+      const res = await signUp(this.state);
+      // res = res.user
+      // this.props.setUser(user);
+      console.log("Response from signUp:", res);
+      if (res.error) {
+        this.setState({ error: res.error });
       } else {
-        localStorage.setItem("token", token.token);
+        // this.props.setUser(res);
+        const { setUser } = this.props;
+        console.log("hello");
+        const saveUser = () => setUser(user);
+        console.log("After");
+        this.props.navigate("/calendar");
       }
     } catch (e) {
       const error = JSON.stringify(e);
