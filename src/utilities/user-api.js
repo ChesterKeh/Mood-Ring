@@ -8,11 +8,10 @@ export async function signUp(userData) {
     body: JSON.stringify(userData),
   });
   if (res.ok) {
-    log("return json");
+    console.log("return json");
     return res.json();
   } else {
-    log("error in signup");
+    console.log("error in signup");
     throw new Error("Invalid Sign Up");
   }
 }
-
