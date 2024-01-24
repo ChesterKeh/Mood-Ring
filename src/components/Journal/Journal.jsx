@@ -12,7 +12,7 @@ export default function Journal() {
   console.log(journals);
 
   if (journals.length === 0) {
-    return <p>Loading...</p>;
+    return <p>Loading</p>;
   }
 
   return (
@@ -21,7 +21,9 @@ export default function Journal() {
         <div key={entry._id}>
           <h1>{entry.title}</h1>
           <p>
-            <i>{entry.mood}</i>
+            <i>
+              {entry.date}, {entry.mood}
+            </i>
           </p>
           <p>{entry.body}</p>
           <hr />

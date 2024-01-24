@@ -1,39 +1,29 @@
 import { useEffect, useState } from "react";
+import { getTask } from "../../utilities/task-service";
+import TaskItem from "./TaskItem";
 
-export default function Task() {
-  const [task, setTask] = useState([]);
+export default function TaskComponent() {
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    fetch("/api/task")
-      .then((res) => res.json())
-      .then((data) => setTask(data.tasks));
+    const fetchData = async () => {
+      try {
+        const response = await getTask();
+        setTasks(response.tasks);
+        console.log("response:", response);
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  console.log(task);
-
-  if (task.length === 0) {
-    return <p>Loading...</p>;
-  }
   return (
     <>
       <h2>tasks</h2>
-      {task.map((entry) => (
-        <div key={entry._id}>
-          <h1>{entry.title}</h1>
-          {entry.subtask.map((sub) => (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "6px",
-              }}
-            >
-              <input type="checkbox" id={sub.item} name={sub.item} />
-              <label htmlFor={sub.item}>{sub.item}</label>
-            </div>
-          ))}
-          <hr />
-        </div>
+      {tasks.map((entry) => (
+        <TaskItem key={entry._id} item={entry} />
       ))}
     </>
   );

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Modal } from "react-overlays";
-import { createTaskWithSubtasks } from "../../utilities/task-service";
+import { createTask } from "../../utilities/task-service";
 
 export default function CreateTaskModal({ showCreateTask, setShowCreateTask }) {
   const [taskData, setTaskData] = useState({
@@ -16,7 +16,7 @@ export default function CreateTaskModal({ showCreateTask, setShowCreateTask }) {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await createTaskWithSubtasks(taskData);
+    const response = await createTask(taskData);
     console.log(response);
   };
 

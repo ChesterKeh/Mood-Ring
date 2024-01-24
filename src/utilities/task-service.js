@@ -1,9 +1,14 @@
 import * as taskAPI from "./task-api";
 
-// export async function createTask(taskData) {
-//   const response = await taskAPI.createTask(taskData);
-//   return response;
-// }
+export async function getTask() {
+  const response = await taskAPI.getTask();
+  return response;
+}
+
+export async function createTask(taskData) {
+  const response = await taskAPI.createTask(taskData);
+  return response;
+}
 
 export async function createTaskWithSubtasks(taskData) {
   const taskResponse = await taskAPI.createTask(taskData);
@@ -11,19 +16,20 @@ export async function createTaskWithSubtasks(taskData) {
   return taskResponse;
 }
 
-// Function to create a subtask
 export async function createSubtask(taskID, subtaskData) {
-  try {
-    const response = await taskAPI.createSubtask({
-      taskID: taskID,
-      subtask: subtaskData.item,
-    });
+  const response = await taskAPI.createSubtask({
+    taskID: taskID,
+    subtask: subtaskData.item,
+  });
+  return response;
+}
 
-    console.log("Subtask created:", response);
+export async function updateTask(taskData) {
+  const response = await taskAPI.updateEvent(taskData);
+  return response;
+}
 
-    return response;
-  } catch (error) {
-    console.error("Error creating subtask:", error);
-    throw error;
-  }
+export async function deleteTask(taskData) {
+  const response = await taskAPI.deleteTask(taskData);
+  return response;
 }

@@ -20,7 +20,6 @@ server.use("/event", eventRouter);
 server.use("/api/users", userRouter);
 
 server.use("/api/event", eventRouter);
-
 server.use("/api/journal", journalRouter);
 server.use("/api/task", taskRouter);
 server.use("/", subtaskRouter);
