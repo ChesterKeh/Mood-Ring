@@ -2,13 +2,15 @@ import { useState } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
 import EditEventModal from "../Modal/EditEventModal";
-import { deleteEvent } from "../../utilities/event-service"
+import EditJournalModal from "../Modal/EditJournalModal";
+import { deleteEvent } from "../../utilities/event-service";
+import { deleteJournal } from "../../utilities/journal-service";
 
-export default function CalendarDayBoxItem({ item }){
-    const [showEditEvent, setShowEditEvent] = useState(false);
+export default function CalendarDayBoxItem({ item, type }){
+    const [showEdit, setShowEdit] = useState(false);
 
     const editButtonClick = () => {
-        setShowEditEvent(true);
+        setShowEdit(true);
     };
 
     const deleteButtonClick = async () => {
@@ -29,7 +31,12 @@ export default function CalendarDayBoxItem({ item }){
 
     const deleteAction = async () => {
         try{
-            const response = await deleteEvent(item);
+            if (type === "event"){
+                const response = await deleteEvent(item);
+            } else{
+                const response = await deleteJournal(item);
+            }
+            
         } catch (error){
             console.log(error);
         }
@@ -37,13 +44,27 @@ export default function CalendarDayBoxItem({ item }){
 
     return (
         <div>
-            <div>
-                <label>{item.eventname}</label>
-                <button onClick={editButtonClick}>Edit</button>
-                <button onClick={deleteButtonClick}>Delete</button>
-            </div>
-            <label>{item.description}</label>
-            <EditEventModal showEditEvent={showEditEvent} setShowEditEvent={setShowEditEvent} prevEvent={item}/>
+            {type === "event" ? 
+                <div>
+                    <div>
+                        <label>Event Name: {item.eventname}</label>
+                        <button onClick={editButtonClick}>Edit</button>
+                        <button onClick={deleteButtonClick}>Delete</button>
+                    </div>
+                    <label>{item.description}</label>
+                    <EditEventModal showEditEvent={showEdit} setShowEditEvent={setShowEdit} prevEvent={item}/>
+                </div> 
+            : 
+                <div>
+                    <div>
+                        <label>Title {item.title}</label>
+                        <button onClick={editButtonClick}>Edit</button>
+                        <button onClick={deleteButtonClick}>Delete</button>
+                    </div>
+                    <label>{item.body}</label>
+                    <EditJournalModal showEditJournal={showEdit} setShowEditJournal={setShowEdit} prevJournal={item}/>
+                </div>
+            }
         </div>
     );
 }
