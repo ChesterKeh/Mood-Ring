@@ -1,7 +1,7 @@
 const BASE_URL = "/api/task";
 
-export async function getTask() {
-  const res = await fetch(BASE_URL, {
+export async function getTaskByUser(userid) {
+  const res = await fetch(BASE_URL + "/userid/" + userid, {
     headers: { "Content-Type": "application/json" },
   });
   if (res.ok) {

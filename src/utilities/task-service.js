@@ -1,7 +1,7 @@
 import * as taskAPI from "./task-api";
 
-export async function getTask() {
-  const response = await taskAPI.getTask();
+export async function getTaskByUser(userid) {
+  const response = await taskAPI.getTaskByUser(userid);
   return response;
 }
 

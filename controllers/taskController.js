@@ -9,6 +9,16 @@ const getAll = async (req, res) => {
   }
 };
 
+const getByUser = async (req, res) => {
+  try {
+    const { userid } = req.params;
+    const tasks = await Task.find({ userid: userid });
+    res.status(200).json({ tasks });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
 const create = async (req, res) => {
   const data = req.body;
   try {
@@ -44,6 +54,7 @@ const deleteTask = async (req, res) => {
 
 module.exports = {
   getAll,
+  getByUser,
   create,
   updateTask,
   deleteTask,

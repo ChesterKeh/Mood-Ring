@@ -17,6 +17,10 @@ const taskSchema = new Schema(
       type: String,
     },
     subtask: [subtaskSchema],
+    userid: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   {
     timestamps: true,

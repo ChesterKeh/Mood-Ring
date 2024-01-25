@@ -4,7 +4,7 @@ import CreateButton from "../../components/CreateButton/CreateButton";
 import MonthSpinner from "../../components/MonthSpinner/MonthSpinner";
 import "./CalendarPage.css";
 import TaskComponent from "../../components/Task/Task";
-import { getTask } from "../../utilities/task-service";
+import { getTaskByUser } from "../../utilities/task-service";
 
 function CalendarPage({ user }) {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -17,7 +17,7 @@ function CalendarPage({ user }) {
 
   const loadTasks = async () => {
     try {
-      const response = await getTask();
+      const response = await getTaskByUser(user._id);
       setTasks(response.tasks);
       console.log("response:", response);
     } catch (error) {
@@ -31,7 +31,7 @@ function CalendarPage({ user }) {
         <TaskComponent user={user} tasks={tasks} loadTasks={loadTasks} />
       </div>
       <div className="calendarPage">
-        <Calendar className="calendarPageBody" currentDate={currentDate} />
+        {/* <Calendar className="calendarPageBody" currentDate={currentDate} /> */}
         <div className="calendarPageFooter">
           <MonthSpinner
             className="calendarPageFooterCol1"

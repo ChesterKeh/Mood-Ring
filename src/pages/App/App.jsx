@@ -31,7 +31,7 @@ function App() {
 
         <Route path="/login" element={<LoginAuthPage setUser={setUser} />} />
         <Route path="/calendar" element={<CalendarPage />} />
-        <Route path="/journal" element={<JournalPage />} />
+        <Route path="/journal" element={<JournalPage user={user} />} />
       </Routes>
     </>
   );

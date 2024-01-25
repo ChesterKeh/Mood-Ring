@@ -3,6 +3,7 @@ import { Modal } from "react-overlays";
 import { createTask } from "../../utilities/task-service";
 
 export default function CreateTaskModal({
+  user,
   showCreateTask,
   setShowCreateTask,
   loadTasks,
@@ -20,7 +21,8 @@ export default function CreateTaskModal({
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await createTask(taskData);
+    const userData = { userid: user._id };
+    const response = await createTask(Object.assign({}, taskData, userData));
     console.log(response);
     loadTasks();
   };
