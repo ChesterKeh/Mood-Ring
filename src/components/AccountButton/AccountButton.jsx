@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Select from "react-select";
+import { useNavigate } from "react-router-dom";
 export default function AccountButton() {
+  const navigate = useNavigate;
   const dropdownOptions = [
     { value: "Private", label: "Set To Private" },
     { value: "LogOut", label: "Log Out" },
@@ -14,6 +16,7 @@ export default function AccountButton() {
   };
   const handleLogout = (event) => {
     event.preventDefault();
+    localStorage.removeItem("authToken");
     console.log("logout");
   };
 
@@ -24,6 +27,7 @@ export default function AccountButton() {
         break;
       case "LogOut":
         handleLogout();
+        navigate("/login");
         break;
     }
     setDropdownValue(null);

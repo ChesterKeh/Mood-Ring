@@ -22,11 +22,16 @@ export default class SignUpForm extends Component {
     event.preventDefault();
     try {
       const user = await signUp(this.state);
-      this.props.setUser(user);
-      this.props.navigate("/calendar");
+      if (user) {
+        this.props.setUser(user);
+        this.props.navigate("/calendar");
+      } else {
+        this.setState({ error: "Email already in use" });
+      }
     } catch (e) {
       const error = JSON.stringify(e);
-      this.setState({ error });
+      this.setState({ error, msg: "Email already in use" });
+      console.log(error);
     }
   };
 
@@ -35,7 +40,10 @@ export default class SignUpForm extends Component {
     return (
       <div>
         <div className="form-container">
-          <form autoComplete="off" onSubmit={this.handleSubmit}>
+          <form
+            autoComplete="off"
+            onSubmit={this.handleSubmit}
+          >
             <label>Name</label>
             <input
               type="text"
@@ -68,12 +76,15 @@ export default class SignUpForm extends Component {
               onChange={this.handleChange}
               required
             />
-            <button type="submit" disabled={disable}>
+            <button
+              type="submit"
+              disabled={disable}
+            >
               SIGN UP
             </button>
+            <div>{this.state.msg && <p>{this.state.msg}</p>}</div>
           </form>
         </div>
-        <p className="error-message">&nbsp;{this.state.error}</p>
       </div>
     );
   }

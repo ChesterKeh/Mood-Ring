@@ -2,20 +2,22 @@ const BASE_URL = "/api/users";
 
 //* all the fetch for users should be here
 export async function signUp(userData) {
+  console.log("Request data:", userData);
+
   const res = await fetch(BASE_URL + "/create", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData),
   });
+  console.log("Response from backend:", res);
   if (res.ok) {
-    console.log("return json");
+    console.log("Return JSON");
     return res.json();
   } else {
-    console.log("error in signup");
+    console.log("Error in signup");
     throw new Error("Invalid Sign Up");
   }
 }
-
 export async function getPublicUsers() {
   const res = await fetch(BASE_URL + "/getpublicusers", {
     method: "GET",
@@ -28,10 +30,10 @@ export async function getPublicUsers() {
   }
 }
 
-export async function getUser(userId){
+export async function getUser(userId) {
   const res = await fetch(BASE_URL + "/user", {
     method: "POST",
-    headers: { "Content-Type": "application/json" }, 
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userId),
   });
   if (res.ok) {
