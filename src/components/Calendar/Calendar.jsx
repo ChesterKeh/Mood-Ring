@@ -4,7 +4,7 @@ import "../Calendar/Calendar.css";
 export default function Calendar({ user, currentDate }){
     const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const calendarDays = [];
-
+    
     //Load initial list based on current date
     const firstDayOfMonthIndex = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay(); //0 -> Sun
     const numOfDaysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate(); //https://stackoverflow.com/questions/1184334/get-number-days-in-a-specified-month-using-javascript
@@ -17,7 +17,7 @@ export default function Calendar({ user, currentDate }){
         const dayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
         calendarDays.push(dayDate);
     }
-
+    
     return (
         <div className="calendar">
             <div className="calendarHeader">
