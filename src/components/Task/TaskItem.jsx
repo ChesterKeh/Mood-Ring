@@ -52,6 +52,7 @@ export default function TaskItem({ item, loadTasks }) {
         showEditTask={showEdit}
         setShowEditTask={setShowEdit}
         prevTask={item}
+        loadTasks={loadTasks}
       />
 
       <hr />

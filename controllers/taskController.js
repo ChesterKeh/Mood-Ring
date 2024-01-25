@@ -24,7 +24,7 @@ const updateTask = async (req, res) => {
   try {
     const task = await Task.findById(_id);
     task.title = req.body.title;
-    task.subtask = req.body.description;
+    task.subtask = req.body.subtask;
     await task.save();
     res.status(200).json({ task });
   } catch (error) {

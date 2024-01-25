@@ -7,10 +7,11 @@ export default function EditTaskModal({
   showEditTask,
   setShowEditTask,
   prevTask,
+  loadTasks,
 }) {
   const [taskData, setTaskData] = useState(prevTask);
 
-  console.log("previoustask:" + taskData.subtask);
+  //   console.log("previoustask:" + taskData.subtask);
   const renderBackdrop = (props) => <div className="backdrop" {...props} />;
 
   const hideModal = () => {
@@ -47,6 +48,7 @@ export default function EditTaskModal({
   const editAction = async () => {
     try {
       const response = await updateTask(taskData);
+      loadTasks();
       setShowEditTask(false);
     } catch (error) {
       console.log(error);

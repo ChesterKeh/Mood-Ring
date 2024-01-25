@@ -1,7 +1,7 @@
 import * as journalAPI from "./journal-api";
 
-export async function getJournalsByDate(date){
-  const response = await journalAPI.getJournalsByDate(date);
+export async function getJournalsByDate(date) {
+  const response = await journalAPI.getJournalsByDate(date, user);
   return response;
 }
 
@@ -10,12 +10,12 @@ export async function createJournal(journalData) {
   return response;
 }
 
-export async function updateJournal(journalData){
+export async function updateJournal(journalData) {
   const response = await journalAPI.updateJournal(journalData);
   return response;
 }
 
-export async function deleteJournal(journalData){
+export async function deleteJournal(journalData) {
   const response = await journalAPI.deleteJournal(journalData);
   return response;
 }
