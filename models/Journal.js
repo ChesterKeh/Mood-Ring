@@ -14,6 +14,10 @@ const journalSchema = new Schema(
     mood: {
       type: String,
     },
+    userid:{
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    }, 
   },
   {
     timestamps: true,

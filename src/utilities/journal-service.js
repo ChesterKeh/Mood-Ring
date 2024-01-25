@@ -1,7 +1,7 @@
 import * as journalAPI from "./journal-api";
 
-export async function getJournalsByDate(date) {
-  const response = await journalAPI.getJournalsByDate(date, user);
+export async function getJournalsByDate(date, userid){
+  const response = await journalAPI.getJournalsByDate(date, userid);
   return response;
 }
 

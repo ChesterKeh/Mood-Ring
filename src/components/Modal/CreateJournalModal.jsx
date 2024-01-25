@@ -5,7 +5,7 @@ import Select from 'react-select'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function CreateJournalModal({ showCreateJournal, setShowCreateJournal }){
+export default function CreateJournalModal({ user, showCreateJournal, setShowCreateJournal }){
     const [startDate, setStartDate] = useState(new Date());
     const [journalData, setJournalData] = useState({});
     const dropdownOptions = [
@@ -26,8 +26,9 @@ export default function CreateJournalModal({ showCreateJournal, setShowCreateJou
   const handleSubmit = async (event) => {
       event.preventDefault();
       const dateData = {"date" : new Date(startDate.getTime())};
-      const response = await createJournal(Object.assign({}, journalData, dateData));
-      console.log(response);
+      const userData = {"userid": user._id};
+      const response = await createJournal(Object.assign({}, journalData, dateData, userData));
+      setShowCreateJournal(false);
   }
 
   const handleChange = (journal) => {

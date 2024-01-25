@@ -3,7 +3,7 @@ import { confirmAlert } from "react-confirm-alert";
 import { Modal } from "react-overlays";
 import { updateJournal } from "../../utilities/journal-service"
 
-export default function EditJournalModal({ showEditJournal, setShowEditJournal, prevJournal}){
+export default function EditJournalModal({ showEditJournal, setShowEditJournal, prevJournal, load}){
     const [journalData, setjournalData] = useState(prevJournal);
     const renderBackdrop = (props) => <div className="backdrop" {...props} />;
 
@@ -36,6 +36,7 @@ export default function EditJournalModal({ showEditJournal, setShowEditJournal, 
         try {
             const response = await updateJournal(journalData);
             setShowEditJournal(false);
+            load();
         } catch (error){
             console.log(error);
         }

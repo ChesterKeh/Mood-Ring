@@ -24,7 +24,7 @@ export default function CalendarDayBox({ user, date }){
     }
 
     const loadJournals = async () => {
-        const response = await getJournalsByDate(date);
+        const response = await getJournalsByDate(date, user._id);
         setJournals(response.journals);
     }
 
