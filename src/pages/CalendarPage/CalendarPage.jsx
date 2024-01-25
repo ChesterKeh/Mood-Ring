@@ -4,7 +4,6 @@ import CreateButton from "../../components/CreateButton/CreateButton";
 import MonthSpinner from "../../components/MonthSpinner/MonthSpinner";
 import "./CalendarPage.css";
 import TaskComponent from "../../components/Task/Task";
-import { getTask } from "../../utilities/task-service";
 
 function CalendarPage({ user, setUser }) {
   const [validToken, setValidToken] = useState(false);
