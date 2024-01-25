@@ -6,7 +6,7 @@ import EditJournalModal from "../Modal/EditJournalModal";
 import { deleteEvent } from "../../utilities/event-service";
 import { deleteJournal } from "../../utilities/journal-service";
 
-export default function CalendarDayBoxItem({ item, type }){
+export default function CalendarDayBoxItem({ item, load, type }){
     const [showEdit, setShowEdit] = useState(false);
 
     const editButtonClick = () => {
@@ -36,7 +36,7 @@ export default function CalendarDayBoxItem({ item, type }){
             } else{
                 const response = await deleteJournal(item);
             }
-            
+            load();
         } catch (error){
             console.log(error);
         }
@@ -52,7 +52,7 @@ export default function CalendarDayBoxItem({ item, type }){
                         <button onClick={deleteButtonClick}>Delete</button>
                     </div>
                     <label>{item.description}</label>
-                    <EditEventModal showEditEvent={showEdit} setShowEditEvent={setShowEdit} prevEvent={item}/>
+                    <EditEventModal showEditEvent={showEdit} setShowEditEvent={setShowEdit} prevEvent={item} load={load}/>
                 </div> 
             : 
                 <div>
@@ -62,7 +62,7 @@ export default function CalendarDayBoxItem({ item, type }){
                         <button onClick={deleteButtonClick}>Delete</button>
                     </div>
                     <label>{item.body}</label>
-                    <EditJournalModal showEditJournal={showEdit} setShowEditJournal={setShowEdit} prevJournal={item}/>
+                    <EditJournalModal showEditJournal={showEdit} setShowEditJournal={setShowEdit} prevJournal={item} load={load}/>
                 </div>
             }
         </div>

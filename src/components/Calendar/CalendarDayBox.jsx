@@ -4,7 +4,7 @@ import { getEventsByDate } from "../../utilities/event-service"
 import { getJournalsByDate } from "../../utilities/journal-api";
 import CalendarDayBoxItem from "./CalendarDayBoxItem";
 
-export default function CalendarDayBox({ date }){
+export default function CalendarDayBox({ user, date }){
     const [showJournal, setShowJournal] = useState("hidden");
     const [showSummary, setShowSummary] = useState(false);
     const [events, setEvents] = useState([]);
@@ -12,19 +12,21 @@ export default function CalendarDayBox({ date }){
     const day = date === null ? 0 : date.getDate();
 
     useEffect(() => {
-        const getEvents = async () => {
-            const response = await getEventsByDate(date);
-            setEvents(response.events);
-        }
-        const getJournals = async () => {
-            const response = await getJournalsByDate(date);
-            setJournals(response.journals);
-        }
         if (date !== null){
-            getEvents();
-            getJournals();
+            loadEvents();
+            loadJournals();
         }
-    }, [events, journals]);
+    }, []);
+
+    const loadEvents = async () => {
+        const response = await getEventsByDate(date, user._id);
+        setEvents(response.events);
+    }
+
+    const loadJournals = async () => {
+        const response = await getJournalsByDate(date);
+        setJournals(response.journals);
+    }
 
     //For modal usage https://contactmentor.com/create-modal-react-js-overlay/
     const renderBackdrop = (props) => <div className="backdrop" {...props} />;
@@ -59,11 +61,11 @@ export default function CalendarDayBox({ date }){
                     <div className="scrollableModal">
                         <label>Day: {day}</label>
                         <div>
-                            {events?.map((event) => (<CalendarDayBoxItem item={event} type={"event"}/>))}
+                            {events?.map((event) => (<CalendarDayBoxItem item={event} load={loadEvents} type={"event"}/>))}
                         </div>
                         <hr/>
                         <div>
-                            {journals?.map((journal) => (<CalendarDayBoxItem item={journal} type={"journal"}/>))}
+                            {journals?.map((journal) => (<CalendarDayBoxItem item={journal} load={loadJournals} type={"journal"}/>))}
                         </div>
                         <button onClick={boxHideSummary}>Close</button>
                     </div>

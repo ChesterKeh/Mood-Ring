@@ -12,6 +12,7 @@ const getAll = async (req, res) => {
 const getByDateAndUser = async (req, res) => {
     try {
         const { date } = req.params;
+        const { userid } = req.params;
         const parsedDate = new Date(parseInt(date));
         const startdate = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate(), 0, 0, 0); //0000HRS
         const enddate = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate(), 23, 59, 59); //2359HRS
@@ -19,7 +20,8 @@ const getByDateAndUser = async (req, res) => {
             "calendarday": {
                 "$gte": startdate,
                 "$lte": enddate
-             }
+             },
+             "userid": userid,
         });
         res.status(200).json({ events });
     } catch (error){
@@ -66,5 +68,5 @@ module.exports = {
     getByDateAndUser,
     createEvent,
     updateEvent,
-    deleteEvent
+    deleteEvent,
 }

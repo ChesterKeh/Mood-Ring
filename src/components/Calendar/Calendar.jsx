@@ -1,7 +1,7 @@
 import CalendarDayBox from "../Calendar/CalendarDayBox";
 import "../Calendar/Calendar.css";
 
-export default function Calendar({ currentDate }){
+export default function Calendar({ user, currentDate }){
     const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const calendarDays = [];
 
@@ -24,7 +24,7 @@ export default function Calendar({ currentDate }){
                 {weekdays.map((day) => (<h2>{day}</h2>))}
             </div>
             <div className="calendarBody">
-                {calendarDays.map((day) => (<CalendarDayBox date={day}/>))}
+                {calendarDays.map((day) => (<CalendarDayBox user={user} date={day}/>))}
             </div>
         </div>
     );

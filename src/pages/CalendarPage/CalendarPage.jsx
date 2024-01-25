@@ -40,6 +40,7 @@ function CalendarPage({ user }) {
           />
           <CreateButton
             className="calendarPageFooterCol2"
+            user={user}
             loadTasks={loadTasks}
           />
         </div>
