@@ -148,13 +148,6 @@ const main = async () => {
       linked_user_id: [],
       isPublic: true,
     },
-    {
-      name: "User 6",
-      email: "user6@example.com",
-      password: "password678",
-      linked_user_id: [],
-      isPublic: false,
-    },
   ]);
   console.log("Initial Users:", initialUsers);
 };
