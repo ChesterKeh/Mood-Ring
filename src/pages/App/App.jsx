@@ -13,23 +13,23 @@ function App() {
   const [validToken, setValidToken] = useState(false);
 
   useEffect(() => {
-    if (getToken() !== null){
+    if (getToken() !== null) {
       setValidToken(true);
-    } else{
+    } else {
       setValidToken(false);
     }
   }, [user]);
 
-  if (!user){
+  if (!user) {
     return (
       <>
         <Routes>
-          <Route path="*" element={<AuthPage setUser={setUser}/>}/>
+          <Route path="*" element={<AuthPage setUser={setUser} />} />
         </Routes>
       </>
     );
-  } else{
-    if (validToken){
+  } else {
+    if (validToken) {
       return (
         <>
           <h1>Mood Ring V2</h1>
@@ -41,8 +41,8 @@ function App() {
           </Routes>
         </>
       );
-    } else{
-      <TokenExpirePage/>
+    } else {
+      <TokenExpirePage />;
     }
   }
 }

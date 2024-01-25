@@ -5,18 +5,16 @@ import MonthSpinner from "../../components/MonthSpinner/MonthSpinner";
 import "./CalendarPage.css";
 import TaskComponent from "../../components/Task/Task";
 import { getTask } from "../../utilities/task-service";
-import { getToken } from "../../utilities/user-service";
-import TokenExpirePage from "../TokenExpirePage/TokenExpirePage";
 
 function CalendarPage({ user, setUser }) {
   const [validToken, setValidToken] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [tasks, setTasks] = useState([]);
-  
+
   useEffect(() => {
-    if (getToken() !== null){
+    if (getToken() !== null) {
       setValidToken(true);
-    } else{
+    } else {
       setValidToken(false);
     }
     loadTasks();
@@ -24,7 +22,7 @@ function CalendarPage({ user, setUser }) {
 
   const loadTasks = async () => {
     try {
-      const response = await getTask();
+      const response = await getTaskByUser(user._id);
       setTasks(response.tasks);
       console.log("response:", response);
     } catch (error) {
@@ -32,36 +30,28 @@ function CalendarPage({ user, setUser }) {
     }
   };
 
-  if (!validToken || user === null){
-     return (
-      <>
-        <TokenExpirePage setUser={setUser}/>
-      </>
-     );
-  } else{
-    return (
-      <>
-        <div className="side">
-          <TaskComponent user={user} tasks={tasks} loadTasks={loadTasks} />
+  return (
+    <>
+      <div className="side">
+        <TaskComponent user={user} tasks={tasks} loadTasks={loadTasks} />
+      </div>
+      <div className="calendarPage">
+        <Calendar className="calendarPageBody" currentDate={currentDate} />
+        <div className="calendarPageFooter">
+          <MonthSpinner
+            className="calendarPageFooterCol1"
+            currentDate={currentDate}
+            setCurrentDate={setCurrentDate}
+          />
+          <CreateButton
+            className="calendarPageFooterCol2"
+            user={user}
+            loadTasks={loadTasks}
+          />
         </div>
-        <div className="calendarPage">
-          <Calendar className="calendarPageBody" user={user} currentDate={currentDate} />
-          <div className="calendarPageFooter">
-            <MonthSpinner
-              className="calendarPageFooterCol1"
-              currentDate={currentDate}
-              setCurrentDate={setCurrentDate}
-            />
-            <CreateButton
-              className="calendarPageFooterCol2"
-              user={user}
-              loadTasks={loadTasks}
-            />
-          </div>
-        </div>
-      </>
-    );
-  }
+      </div>
+    </>
+  );
 }
 
 export default CalendarPage;
