@@ -16,8 +16,15 @@ const userSchema = new Schema(
       minLength: 3,
       required: true,
     },
-    linked_user_id: {
-      type: String,
+    linked_user_id: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    isPublic: {
+      type: Boolean,
+      default: false,
     },
   },
   {
@@ -34,18 +41,11 @@ const userSchema = new Schema(
 const SALT_ROUNDS = 10;
 
 userSchema.pre("save", async function (next) {
-  try {
-    // 'this' is the user doc
-    if (!this.isModified("password")) return next();
-
-    // update the password with the computed hash
-    const hashedPassword = await bcrypt.hash(this.password, SALT_ROUNDS);
-    this.password = hashedPassword;
-
-    return next();
-  } catch (error) {
-    return next(error);
-  }
+  // 'this' is the user doc
+  if (!this.isModified("password")) return next();
+  // update the password with the computed hash
+  this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
+  return next();
 });
 
 module.exports = model("User", userSchema);
