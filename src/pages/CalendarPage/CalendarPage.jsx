@@ -4,15 +4,20 @@ import CreateButton from "../../components/CreateButton/CreateButton";
 import MonthSpinner from "../../components/MonthSpinner/MonthSpinner";
 import "./CalendarPage.css";
 import TaskComponent from "../../components/Task/Task";
-import { getTaskByUser } from "../../utilities/task-service";
+import { getTask } from "../../utilities/task-service";
 
-function CalendarPage({ user }) {
+function CalendarPage({ user, setUser }) {
+  const [validToken, setValidToken] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
+    if (getToken() !== null) {
+      setValidToken(true);
+    } else {
+      setValidToken(false);
+    }
     loadTasks();
-    console.log(user);
   }, []);
 
   const loadTasks = async () => {
@@ -31,7 +36,7 @@ function CalendarPage({ user }) {
         <TaskComponent user={user} tasks={tasks} loadTasks={loadTasks} />
       </div>
       <div className="calendarPage">
-        {/* <Calendar className="calendarPageBody" currentDate={currentDate} /> */}
+        <Calendar className="calendarPageBody" currentDate={currentDate} />
         <div className="calendarPageFooter">
           <MonthSpinner
             className="calendarPageFooterCol1"

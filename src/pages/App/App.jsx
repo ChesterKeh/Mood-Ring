@@ -1,40 +1,52 @@
-import { Link } from "react-router-dom"; // Add missing import
-
-import CalendarPage from "../CalendarPage/CalendarPage";
 import { Route, Routes } from "react-router-dom";
-
+import { useEffect, useState } from "react";
+import AuthPage from "../AuthPage/AuthPage";
+import CalendarPage from "../CalendarPage/CalendarPage";
 import JournalPage from "../JournalPage/JournalPage";
 import Navbar from "../../components/Navbar/Navbar";
-import SignupAuthPage from "../UserForm/AuthPage/SignupAuthPage";
-import LoginAuthPage from "../UserForm/AuthPage/LoginAuthPage";
-import { useState } from "react";
+import { getToken } from "../../utilities/user-service";
+import TokenExpirePage from "../TokenExpirePage/TokenExpirePage";
 
 function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
+  const [validToken, setValidToken] = useState(false);
 
-  return (
-    <>
-      <header>{user?.name}</header>
-      <Navbar />
+  useEffect(() => {
+    if (getToken() !== null) {
+      setValidToken(true);
+    } else {
+      setValidToken(false);
+    }
+  }, [user]);
 
-      <h1>Mood Ring V2</h1>
-      <Link to="/login">
-        <button>Login</button>
-      </Link>
-      <Link to="/signup">
-        <button>Signup</button>
-      </Link>
-
-      <Routes>
-        <Route path="/calendar" element={<CalendarPage user={user} />} />
-        <Route path="/signup" element={<SignupAuthPage setUser={setUser} />} />
-
-        <Route path="/login" element={<LoginAuthPage setUser={setUser} />} />
-        <Route path="/calendar" element={<CalendarPage />} />
-        <Route path="/journal" element={<JournalPage user={user} />} />
-      </Routes>
-    </>
-  );
+  if (!user) {
+    return (
+      <>
+        <Routes>
+          <Route path="*" element={<AuthPage setUser={setUser} />} />
+        </Routes>
+      </>
+    );
+  } else {
+    if (validToken) {
+      return (
+        <>
+          <Navbar />
+          <h1>Mood Ring V2</h1>
+          <Routes>
+            <Route
+              path="/calendar"
+              element={<CalendarPage user={user} setUser={setUser} />}
+            />
+            <Route path="/journal" element={<JournalPage />} />
+            <Route path="*" element={<CalendarPage user={user} />} />
+          </Routes>
+        </>
+      );
+    } else {
+      <TokenExpirePage />;
+    }
+  }
 }
 
 export default App;
