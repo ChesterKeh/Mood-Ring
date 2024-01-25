@@ -30,3 +30,24 @@ export function getToken() {
   }
   return token;
 }
+
+export async function getPublicUsers() {
+  const response = await usersAPI.getPublicUsers();
+  return response;
+}
+
+export async function getUser(userId){
+  const response = await usersAPI.getUser(userId);
+  return response;
+}
+
+export async function addFriend(friendId) {
+  const response = await usersAPI.addFriend(friendId);
+  return response;
+}
+
+export async function removeFriend(userData) {
+  const response = await usersAPI.removeFriend(userData);
+  return response;
+}
+

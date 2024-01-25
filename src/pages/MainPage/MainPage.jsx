@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
-import AccountButton from "../../components/AccountButton/AccountButton";
 import TokenExpirePage from "../TokenExpirePage/TokenExpirePage";
 import TaskComponent from "../../components/Task/Task";
 import Calendar from "../../components/Calendar/Calendar";
+import Journal from "../../components/Journal/Journal";
+import LinkedUsers from "../../components/LinkedUsers/LinkedUsers";
 import MonthSpinner from "../../components/MonthSpinner/MonthSpinner";
 import CreateButton from "../../components/CreateButton/CreateButton";
 import { getToken } from "../../utilities/user-service";
+import { getTaskByUser } from "../../utilities/task-service";
 
 function MainPage({ user, setUser }) {
     const [validToken, setValidToken] = useState(false);
     const [currentDate, setCurrentDate] = useState(new Date());
+    const [selectedNavButton, setSelectedNavButton] = useState("calendar");
     const [tasks, setTasks] = useState([]);
     
     useEffect(() => {
@@ -20,11 +23,11 @@ function MainPage({ user, setUser }) {
         setValidToken(false);
       }
       loadTasks();
-    }, []);
+    }, [selectedNavButton, currentDate]);
   
     const loadTasks = async () => {
       try {
-        const response = await getTask();
+        const response = await getTaskByUser(user._id);
         setTasks(response.tasks);
       } catch (error) {
         console.error("Error fetching tasks:", error);
@@ -33,33 +36,26 @@ function MainPage({ user, setUser }) {
 
     if (!validToken || user === null){
        return (
-        <>
-          <TokenExpirePage setUser={setUser}/>
-        </>
+        <><TokenExpirePage setUser={setUser}/></>
        );
     } else{
       return (
         <>
             <div className="mainHeader">
-                <Navbar />
-                <AccountButton />
+                <Navbar user={user} setSelectedNavButton={setSelectedNavButton}/>
             </div>
             <div className="sideBody">
                 <TaskComponent user={user} tasks={tasks} loadTasks={loadTasks} />
+                <LinkedUsers user={user} setUser={setUser}/>
             </div>
             <div className="calendarPage">
-                <Calendar className="calendarPageBody" 
-                user={user} 
-                currentDate={currentDate}/>
-                <div className="calendarPageFooter">
-                    <MonthSpinner className="calendarPageFooterCol1"
-                    currentDate={currentDate}
-                    setCurrentDate={setCurrentDate}/>
-                    <CreateButton className="calendarPageFooterCol2"
-                    user={user}
-                    loadTasks={loadTasks}/>
+              {selectedNavButton === "calendar" ? <Calendar className="calendarPageBody" user={user} currentDate={currentDate}/> : <></>}
+              {selectedNavButton === "journal" ? <Journal /> : <></>}
+              <div className="calendarPageFooter">
+                  <MonthSpinner className="calendarPageFooterCol1" currentDate={currentDate} setCurrentDate={setCurrentDate}/>
+                  <CreateButton className="calendarPageFooterCol2" user={user} loadTasks={loadTasks}/>
+              </div>
             </div>
-        </div>
         </>
       );
     }

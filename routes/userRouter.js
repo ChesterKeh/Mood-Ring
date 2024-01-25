@@ -7,4 +7,9 @@ router.get("/", userController.getAll);
 router.post("/create", userController.create);
 router.post("/login", userController.login);
 
+router.get("/getpublicusers", userController.getpublicusers);
+router.post("/user/", userController.getUser);
+router.post("/addfriend", userController.addFriend);
+router.post("/removefriend", userController.removeFriend);
+
 module.exports = router;
