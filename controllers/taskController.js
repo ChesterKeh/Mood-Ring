@@ -35,7 +35,7 @@ const updateTask = async (req, res) => {
 const deleteTask = async (req, res) => {
   const data = req.body;
   try {
-    const event = await Task.deleteOne(data);
+    const task = await Task.deleteOne(data);
     res.status(200).json({ task });
   } catch (error) {
     res.status(500).json({ error });
