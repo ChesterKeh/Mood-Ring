@@ -1,0 +1,86 @@
+.mainHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navButtons {
+    display: flex;
+}
+.container {
+    display: flex;
+}
+
+.sideBody {
+    width: 80%;
+    background-color:none;
+    padding: 20px;
+margin-top:20px;
+    border-right:1px solid grey;
+}
+
+.entryContainer {
+    padding: 20px;
+}
+
+.calendarPageFooter{
+    position: fixed;
+    bottom: -20px;
+    width: 100%;
+}
+
+
+
+.css-1jqq78o-placeholder {
+    grid-area: 1/1/2/3;
+    color: hsl(0, 0%, 0%);
+    margin-left: 2px;
+    margin-right: 2px;
+    box-sizing: border-box;
+}
+
+.css-1xc3v61-indicatorContainer {
+    color:black;
+}
+
+.css-1u9des2-indicatorSeparator {
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    width: 0px;
+    background-color: hsl(0, 0%, 80%);
+    margin-bottom: 8px;
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+
+.css-b62m3t-container {
+    width: 150px;
+    margin-top:20px;
+    margin-right:20px;
+}
+
+.css-t3ipsp-control{
+    border-radius: 25px;
+    width: 150px;
+    border: 0px;
+    background-color: #E0F928;
+    margin-top:20px;
+    margin-right:20px;
+}
+
+.css-1nmdiq5-menu{
+    width: 130px;
+    background-color: #EFEFEF;
+    color: black;
+}
+
+.accountButton{
+background-color: #E0F928;
+border:1px solid black;
+}
+
+
+h3 {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}

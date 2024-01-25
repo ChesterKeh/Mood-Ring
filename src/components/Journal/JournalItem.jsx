@@ -3,6 +3,7 @@ import { confirmAlert } from "react-confirm-alert";
 import { deleteJournal } from "../../utilities/journal-service";
 import EditJournalModal from "../Modal/EditJournalModal";
 import { format } from "date-fns";
+import "./Journal.css";
 
 export default function JournalItem({ item, loadJournals }) {
   const [showEdit, setShowEdit] = useState(false);
@@ -35,17 +36,25 @@ export default function JournalItem({ item, loadJournals }) {
   };
   return (
     <>
-      <h1>{item.title}</h1>
-      <p>
-        <i>
-          {format(new Date(item.date), "dd MMMM yyyy")}, {item.mood}
-        </i>
-      </p>
-      <p>{item.body}</p>
-
-      <button onClick={handleUpdate}>edit</button>
-      <button onClick={handleDelete}>delete</button>
-
+      <div className="entryWrapper">
+        <div className="titleWrapper">
+          <h1>{item.title}</h1>
+          <div className="buttonWrapper">
+            <button onClick={handleUpdate} className="journalButton">
+              ✏️
+            </button>
+            <button onClick={handleDelete} className="journalButton">
+              🗑
+            </button>
+          </div>
+        </div>
+        <p>
+          <i>
+            {format(new Date(item.date), "dd MMMM yyyy")}, {item.mood}
+          </i>
+        </p>
+        <p>{item.body}</p>
+      </div>
       <EditJournalModal
         showEditJournal={showEdit}
         setShowEditJournal={setShowEdit}

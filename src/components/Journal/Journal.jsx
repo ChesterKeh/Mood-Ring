@@ -18,7 +18,6 @@ export default function Journal({ user, journals, loadJournals }) {
 
   return (
     <>
-      <h2>journals</h2>
       {journals.map((entry) => (
         <JournalItem key={entry._id} item={entry} loadJournals={loadJournals} />
       ))}

@@ -10,6 +10,7 @@ import { getToken } from "../../utilities/user-service";
 import { getTaskByUser } from "../../utilities/task-service";
 import { getJournalsByUser } from "../../utilities/journal-service";
 import Journal from "../../components/Journal/Journal";
+import "./MainPage.css";
 
 function MainPage({ user, setUser }) {
   const [validToken, setValidToken] = useState(false);
@@ -56,34 +57,43 @@ function MainPage({ user, setUser }) {
       <>
         <div className="mainHeader">
           <Navbar />
-          <AccountButton />
-        </div>
-        <div className="sideBody">
-          <TaskComponent user={user} tasks={tasks} loadTasks={loadTasks} />
-        </div>
-        <div className="calendarPage">
-          <Calendar
-            className="calendarPageBody"
-            user={user}
+          {/* <MonthSpinner
             currentDate={currentDate}
-          />
-          <Journal
-            user={user}
-            journals={journals}
-            loadJournals={loadJournals}
-          />
-          <div className="calendarPageFooter">
-            <MonthSpinner
-              className="calendarPageFooterCol1"
-              currentDate={currentDate}
-              setCurrentDate={setCurrentDate}
-            />
+            setCurrentDate={setCurrentDate}
+          /> */}
+          <div className="navButtons">
             <CreateButton
-              className="calendarPageFooterCol2"
               user={user}
               loadTasks={loadTasks}
               loadJournals={loadJournals}
             />
+            <AccountButton />
+          </div>
+        </div>
+        <div className="container">
+          <div className="sideBody">
+            <TaskComponent user={user} tasks={tasks} loadTasks={loadTasks} />
+          </div>
+          <div className="entryContainer">
+            <div className="calendarPage">
+              <Calendar
+                className="calendarPageBody"
+                user={user}
+                currentDate={currentDate}
+              />
+            </div>
+            <Journal
+              user={user}
+              journals={journals}
+              loadJournals={loadJournals}
+            />
+            <div className="calendarPageFooter">
+              <MonthSpinner
+                // className="calendarPageFooterCol1"
+                currentDate={currentDate}
+                setCurrentDate={setCurrentDate}
+              />
+            </div>
           </div>
         </div>
       </>

@@ -32,9 +32,12 @@ function App() {
     if (validToken) {
       return (
         <>
-          <h1>Mood Ring V2</h1>
+          {/* <h1>Mood Ring V2</h1> */}
           <Routes>
-            <Route path="*" element={<MainPage user={user} setUser={setUser}/>} />
+            <Route
+              path="*"
+              element={<MainPage user={user} setUser={setUser} />}
+            />
             {/* <Route path="/calendar" element={<CalendarPage user={user} setUser={setUser}/>} />
             <Route path="/journal" element={<JournalPage />} />
             <Route path="*" element={<CalendarPage user={user} />} /> */}

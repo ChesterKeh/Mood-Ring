@@ -66,9 +66,11 @@ export default function CreateTaskModal({
               />
             </label>
           ))}
+          <br />
           <button type="button" onClick={addSubtaskField}>
             Add Subtask
           </button>
+          <br />
           <button type="submit">Add</button>
         </form>
         <button onClick={hideModal}>Close</button>

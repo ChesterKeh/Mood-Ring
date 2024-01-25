@@ -1,0 +1,13 @@
+.taskContainer {
+    background-color: rgba(255, 255, 255, 0.086);
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+
+.taskButton {
+    margin-right: 10px;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0);
+    font-size: 12px;
+}

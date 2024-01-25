@@ -37,7 +37,7 @@ export default function CreateButton({ user, loadTasks, loadJournals }) {
         options={dropdownOptions}
         value={dropdownValue}
         onChange={onDropdownChange}
-        placeholder="Create Item"
+        placeholder="+ create"
       />
       <CreateEventModal
         user={user}

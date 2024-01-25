@@ -1,15 +1,21 @@
 import { NavLink } from "react-router-dom";
 import AccountButton from "../AccountButton/AccountButton";
+import "./Navbar.css";
 
 export default function Navbar({ user }) {
   return (
     <>
-      <nav>
-        <NavLink to="/calendar">calendar</NavLink>/ &nbsp; | &nbsp;
-        <NavLink to="/journal">journal</NavLink>
-        &nbsp; | &nbsp;
+      <nav style={{ padding: "20px" }}>
+        <NavLink to="/calendar" className="navLink">
+          calendar
+        </NavLink>
+
+        <NavLink to="/journal" className="navLink">
+          journal
+        </NavLink>
+
         {/* <span>Welcome, {user.name}</span> */}
-        <AccountButton />
+        {/* <AccountButton /> */}
       </nav>
     </>
   );
