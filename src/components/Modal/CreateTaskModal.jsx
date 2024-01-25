@@ -2,7 +2,11 @@ import { useState } from "react";
 import { Modal } from "react-overlays";
 import { createTask } from "../../utilities/task-service";
 
-export default function CreateTaskModal({ showCreateTask, setShowCreateTask }) {
+export default function CreateTaskModal({
+  showCreateTask,
+  setShowCreateTask,
+  loadTasks,
+}) {
   const [taskData, setTaskData] = useState({
     title: "",
     subtask: [],
@@ -18,6 +22,7 @@ export default function CreateTaskModal({ showCreateTask, setShowCreateTask }) {
     event.preventDefault();
     const response = await createTask(taskData);
     console.log(response);
+    loadTasks();
   };
 
   const handleChange = (task) => {

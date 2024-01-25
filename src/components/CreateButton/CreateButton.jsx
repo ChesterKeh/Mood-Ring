@@ -1,42 +1,60 @@
 import { useState, useEffect } from "react";
-import Select from 'react-select'
+import Select from "react-select";
 import CreateEventModal from "../Modal/CreateEventModal";
 import CreateTaskModal from "../Modal/CreateTaskModal";
 import CreateJournalModal from "../Modal/CreateJournalModal";
 
-export default function CreateButton({ user }){
-    //https://www.npmjs.com/package/react-dropdown
-    const dropdownOptions = [
-        { value: 'Event', label: 'Event' },
-        { value: 'Journal', label: 'Journal' },
-        { value: 'Task', label: 'Task' }
-    ];
-    const [dropdownValue, setDropdownValue ] = useState(null); //static value
-    const [showCreateEvent, setShowCreateEvent] = useState(false);
-    const [showCreateJournal, setShowCreateJournal] = useState(false);
-    const [showCreateTask, setShowCreateTask] = useState(false);
+export default function CreateButton({ user, loadTasks }) {
+  //https://www.npmjs.com/package/react-dropdown
+  const dropdownOptions = [
+    { value: "Event", label: "Event" },
+    { value: "Journal", label: "Journal" },
+    { value: "Task", label: "Task" },
+  ];
+  const [dropdownValue, setDropdownValue] = useState(null); //static value
+  const [showCreateEvent, setShowCreateEvent] = useState(false);
+  const [showCreateJournal, setShowCreateJournal] = useState(false);
+  const [showCreateTask, setShowCreateTask] = useState(false);
 
-    const onDropdownChange = (event) => {
-        switch (event.value){
-            case "Event":
-                setShowCreateEvent(true);
-                break;
-            case "Task":
-                setShowCreateTask(true);
-                break;
-            default:
-                setShowCreateJournal(true);
-                break;
-        }
-        setDropdownValue(null);
+  const onDropdownChange = (event) => {
+    switch (event.value) {
+      case "Event":
+        setShowCreateEvent(true);
+        break;
+      case "Task":
+        setShowCreateTask(true);
+        break;
+      default:
+        setShowCreateJournal(true);
+        break;
     }
-    
-    return (
-        <div>
-            <Select options={dropdownOptions} value={dropdownValue} onChange={onDropdownChange} placeholder="Create Item" />
-            <CreateEventModal user={user} showCreateEvent={showCreateEvent} setShowCreateEvent={setShowCreateEvent}/>
-            <CreateTaskModal user={user} showCreateTask={showCreateTask} setShowCreateTask={setShowCreateTask}/>
-            <CreateJournalModal user={user} showCreateJournal={showCreateJournal} setShowCreateJournal={setShowCreateJournal}/>
-        </div>
-    );
-};
+    setDropdownValue(null);
+  };
+
+  return (
+    <div>
+      <Select
+        options={dropdownOptions}
+        value={dropdownValue}
+        onChange={onDropdownChange}
+        placeholder="Create Item"
+      />
+      <CreateEventModal
+        user={user}
+        showCreateEvent={showCreateEvent}
+        setShowCreateEvent={setShowCreateEvent}
+      />
+      <CreateTaskModal
+        user={user}
+        showCreateTask={showCreateTask}
+        setShowCreateTask={setShowCreateTask}
+        loadTasks={loadTasks}
+      />
+      <CreateJournalModal
+        user={user}
+        showCreateJournal={showCreateJournal}
+        setShowCreateJournal={setShowCreateJournal}
+      />
+    </div>
+  );
+}

@@ -2,7 +2,7 @@ import { confirmAlert } from "react-confirm-alert";
 import { deleteTask } from "../../utilities/task-service";
 import { useState } from "react";
 import EditTaskModal from "../Modal/EditTaskModal";
-export default function TaskItem({ item }) {
+export default function TaskItem({ item, loadTasks }) {
   const [showEdit, setShowEdit] = useState(false);
   const handleUpdate = (event) => {
     setShowEdit(true);
@@ -25,6 +25,7 @@ export default function TaskItem({ item }) {
   const deleteAction = async () => {
     try {
       const response = await deleteTask(item);
+      loadTasks();
     } catch (error) {
       console.log(error);
     }
@@ -51,6 +52,7 @@ export default function TaskItem({ item }) {
         showEditTask={showEdit}
         setShowEditTask={setShowEdit}
         prevTask={item}
+        loadTasks={loadTasks}
       />
 
       <hr />

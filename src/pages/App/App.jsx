@@ -26,27 +26,12 @@ function App() {
       </Link>
 
       <Routes>
-        <Route
-          path="/calendar"
-          element={<CalendarPage user={user} />}
-        />
-        <Route
-          path="/signup"
-          element={<SignupAuthPage setUser={setUser} />}
-        />
+        <Route path="/calendar" element={<CalendarPage user={user} />} />
+        <Route path="/signup" element={<SignupAuthPage setUser={setUser} />} />
 
-        <Route
-          path="/login"
-          element={<LoginAuthPage setUser={setUser} />}
-        />
-        <Route
-          path="/calendar"
-          element={<CalendarPage />}
-        />
-        <Route
-          path="/journal"
-          element={<JournalPage user={user} />}
-        />
+        <Route path="/login" element={<LoginAuthPage setUser={setUser} />} />
+        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/journal" element={<JournalPage />} />
       </Routes>
     </>
   );
