@@ -1,7 +1,7 @@
 const BASE_URL = "/api/journal";
 
-export async function getJournalsByDate(date){
-    const res = await fetch(BASE_URL + "/date/" + Date.parse(date), {
+export async function getJournalsByDate(date, userid){
+    const res = await fetch(BASE_URL + "/date/" + Date.parse(date) + "/userid/" + userid,{
         headers:{"Content-Type": "application/json" }
     });
     if (res.ok) {
