@@ -23,21 +23,28 @@ function createJWT(user) {
 const create = async (req, res) => {
   const data = req.body;
 
-  if (data.password.trim().length < 3) {
-    const error = { msg: "server password too short" };
-    res.status(400).json(error);
-    return;
-  }
-
   try {
-    //creates the news update //
+    const existingUser = await User.findOne({ email: data.email });
+    if (existingUser) {
+      return res.status(400).json({ error: "Email already in use" });
+    }
+
+    if (data.password.trim().length < 3) {
+      const error = { msg: "Server password too short" };
+      return res.status(400).json(error);
+    }
+
     const user = await User.create(data);
     const token = createJWT(user);
 
     res.status(201).json({ token, user });
-    return token;
   } catch (error) {
-    res.status(500).json({ error });
+    if (error.code === 11000 || error.code === 11001) {
+      return res.status(400).json({ error: "Email already in use" });
+    }
+
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -75,21 +82,21 @@ const getpublicusers = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  try{
+  try {
     const { _id } = req.body;
-    const user = await User.findOne({_id : _id});
+    const user = await User.findOne({ _id: _id });
     console.log(user);
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
-}
+};
 
 const addFriend = async (req, res) => {
   const { userId, friendId } = req.body;
   try {
     const user = await User.findById(userId);
-    if (!user){
+    if (!user) {
       return res.status(404).json({ error: "User does not exist" });
     }
     user.linked_user_id.push(friendId);
