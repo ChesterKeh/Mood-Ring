@@ -9,20 +9,27 @@ import MonthSpinner from "../../components/MonthSpinner/MonthSpinner";
 import CreateButton from "../../components/CreateButton/CreateButton";
 import { getToken } from "../../utilities/user-service";
 import { getTaskByUser } from "../../utilities/task-service";
+import { RingLoader } from "react-spinners";
 
 function MainPage({ user, setUser }) {
+    const [loading, setLoading] = useState(false);
     const [validToken, setValidToken] = useState(false);
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedNavButton, setSelectedNavButton] = useState("calendar");
     const [tasks, setTasks] = useState([]);
     
     useEffect(() => {
-      if (getToken() !== null){
-        setValidToken(true);
-      } else{
-        setValidToken(false);
+      setLoading(true);
+      async function loadPage(){
+        if (getToken() !== null){
+          setValidToken(true);
+        } else{
+          setValidToken(false);
+        }
+        loadTasks();
+        setLoading(false);
       }
-      loadTasks();
+      loadPage();
     }, [selectedNavButton, currentDate]);
   
     const loadTasks = async () => {
@@ -44,6 +51,13 @@ function MainPage({ user, setUser }) {
             <div className="mainHeader">
                 <Navbar user={user} setSelectedNavButton={setSelectedNavButton}/>
             </div>
+            <RingLoader
+              color="#ffffff"
+              loading={loading}
+              size={150}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
             <div className="sideBody">
                 <TaskComponent user={user} tasks={tasks} loadTasks={loadTasks} />
                 <LinkedUsers user={user} setUser={setUser}/>

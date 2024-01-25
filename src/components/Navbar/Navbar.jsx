@@ -1,16 +1,15 @@
-import { NavLink } from "react-router-dom";
 import AccountButton from "../AccountButton/AccountButton";
 
-export default function Navbar({ user }) {
+export default function Navbar({ user, setSelectedNavButton}) {
+  const onNavButtonClick = (event) => {
+    setSelectedNavButton(event.target.name);
+  }
+
   return (
-    <>
-      <nav>
-        <NavLink to="/calendar">calendar</NavLink>/ &nbsp; | &nbsp;
-        <NavLink to="/journal">journal</NavLink>
-        &nbsp; | &nbsp;
-        {/* <span>Welcome, {user.name}</span> */}
-        <AccountButton />
-      </nav>
-    </>
+    <div>
+      <button name="calendar" onClick={onNavButtonClick}>Calendar</button>
+      <button name="journal" onClick={onNavButtonClick}>Journal</button>
+      <AccountButton user={user}/>
+    </div>
   );
 }

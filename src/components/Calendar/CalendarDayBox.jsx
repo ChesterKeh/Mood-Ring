@@ -16,16 +16,27 @@ export default function CalendarDayBox({ user, date }){
             loadEvents();
             loadJournals();
         }
-    }, []);
+    }, [date]);
 
     const loadEvents = async () => {
+        const newEventList = [];
         const response = await getEventsByDate(date, user._id);
-        setEvents(response.events);
+        newEventList.concat(response.events);
+        for (const friendId of user.linked_user_id){
+            const friendRes = await getEventsByDate(date, friendId);
+            if (friendRes.events){
+                newEventList.concat(friendRes.events);
+            }
+        }
+        setEvents(newEventList);
     }
 
     const loadJournals = async () => {
         const response = await getJournalsByDate(date, user._id);
         setJournals(response.journals);
+        if (response.journals !== null){
+            setShowJournal(true);
+        }
     }
 
     //For modal usage https://contactmentor.com/create-modal-react-js-overlay/
@@ -49,7 +60,7 @@ export default function CalendarDayBox({ user, date }){
             <div>
                 <div onClick={boxShowSummary}>
                     <label>{day}</label>
-                    <image visibility={showJournal}></image>
+                    <image path="" visibility={showJournal}></image>
                     <div>
                         {events?.map((event) => (<label>{event.eventname}</label>))}
                     </div>

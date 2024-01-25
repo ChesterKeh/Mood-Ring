@@ -1,10 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AuthPage from "../AuthPage/AuthPage";
-import CalendarPage from "../CalendarPage/CalendarPage";
-import JournalPage from "../JournalPage/JournalPage";
 import MainPage from "../MainPage/MainPage";
-import Navbar from "../../components/Navbar/Navbar";
 import { getToken } from "../../utilities/user-service";
 import TokenExpirePage from "../TokenExpirePage/TokenExpirePage";
 
@@ -18,7 +15,7 @@ function App() {
     } else {
       setValidToken(false);
     }
-  }, [user]);
+  }, []);
 
   if (!user) {
     return (
