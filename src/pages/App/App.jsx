@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import AuthPage from "../AuthPage/AuthPage";
 import CalendarPage from "../CalendarPage/CalendarPage";
 import JournalPage from "../JournalPage/JournalPage";
+import MainPage from "../MainPage/MainPage";
 import Navbar from "../../components/Navbar/Navbar";
 import { getToken } from "../../utilities/user-service";
 import TokenExpirePage from "../TokenExpirePage/TokenExpirePage";
@@ -31,12 +32,12 @@ function App() {
     if (validToken){
       return (
         <>
-          <Navbar />
           <h1>Mood Ring V2</h1>
           <Routes>
-            <Route path="/calendar" element={<CalendarPage user={user} setUser={setUser}/>} />
+            <Route path="*" element={<MainPage user={user} setUser={setUser}/>} />
+            {/* <Route path="/calendar" element={<CalendarPage user={user} setUser={setUser}/>} />
             <Route path="/journal" element={<JournalPage />} />
-            <Route path="*" element={<CalendarPage user={user} />} />
+            <Route path="*" element={<CalendarPage user={user} />} /> */}
           </Routes>
         </>
       );
