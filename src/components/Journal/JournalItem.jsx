@@ -2,6 +2,7 @@ import { useState } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import { deleteJournal } from "../../utilities/journal-service";
 import EditJournalModal from "../Modal/EditJournalModal";
+import { format } from "date-fns";
 
 export default function JournalItem({ item, loadJournals }) {
   const [showEdit, setShowEdit] = useState(false);
@@ -37,7 +38,7 @@ export default function JournalItem({ item, loadJournals }) {
       <h1>{item.title}</h1>
       <p>
         <i>
-          {item.date}, {item.mood}
+          {format(new Date(item.date), "dd MMMM yyyy")}, {item.mood}
         </i>
       </p>
       <p>{item.body}</p>

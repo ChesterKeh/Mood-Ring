@@ -62,11 +62,11 @@ function MainPage({ user, setUser }) {
           <TaskComponent user={user} tasks={tasks} loadTasks={loadTasks} />
         </div>
         <div className="calendarPage">
-          {/* <Calendar
+          <Calendar
             className="calendarPageBody"
             user={user}
             currentDate={currentDate}
-          /> */}
+          />
           <Journal
             user={user}
             journals={journals}

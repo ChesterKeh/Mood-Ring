@@ -24,17 +24,16 @@ const getByMonthAndUser = async (req, res) => {
     const { date, userid } = req.params;
     const parsedDate = new Date(parseInt(date));
 
-    // Calculate the start and end dates for the month
     const startMonth = new Date(
       parsedDate.getFullYear(),
       parsedDate.getMonth(),
       1
-    ); // First day of the month
+    );
     const endMonth = new Date(
       parsedDate.getFullYear(),
       parsedDate.getMonth() + 1,
       0
-    ); // Last day of the month
+    );
 
     const startdate = new Date(startMonth.setHours(0, 0, 0)); // 0000HRS
     const enddate = new Date(endMonth.setHours(23, 59, 59)); // 2359HRS
