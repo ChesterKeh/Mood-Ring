@@ -10,7 +10,11 @@ const eventSchema = new Schema(
         },
         description:{
             type: String,
-        }
+        },
+        userid:{
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        },
     },
     {
         timestamps: true,

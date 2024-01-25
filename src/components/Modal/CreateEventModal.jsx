@@ -4,7 +4,7 @@ import { createEvent } from "../../utilities/event-service"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function CreateEventModal({ showCreateEvent, setShowCreateEvent }){
+export default function CreateEventModal({ user, showCreateEvent, setShowCreateEvent }){
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [eventData, setEventData] = useState({});
@@ -27,11 +27,13 @@ export default function CreateEventModal({ showCreateEvent, setShowCreateEvent }
         currentDate.setMinutes(0);
         while (currentDate.getTime() <= endDate.getTime()){
             const dateData = {"calendarday" : new Date(currentDate.getTime())};
-            const newEventData = Object.assign({}, eventData, dateData);
+            const userData = {"userid": user._id};
+            const newEventData = Object.assign({}, eventData, dateData, userData);
             eventDataArray.push(newEventData);
             currentDate.setDate(currentDate.getDate() + 1);
         }
         const response = await createEvent(eventDataArray);
+        setShowCreateEvent(false);
     }
 
     const handleChange = (event) => {
