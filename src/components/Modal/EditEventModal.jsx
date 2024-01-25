@@ -3,7 +3,7 @@ import { confirmAlert } from "react-confirm-alert";
 import { Modal } from "react-overlays";
 import { updateEvent } from "../../utilities/event-service"
 
-export default function EditEventModal({ showEditEvent, setShowEditEvent, prevEvent}){
+export default function EditEventModal({ showEditEvent, setShowEditEvent, prevEvent, load}){
     const [eventData, setEventData] = useState(prevEvent);
     const renderBackdrop = (props) => <div className="backdrop" {...props} />;
 
@@ -36,6 +36,7 @@ export default function EditEventModal({ showEditEvent, setShowEditEvent, prevEv
         try {
             const response = await updateEvent(eventData);
             setShowEditEvent(false);
+            load();
         } catch (error){
             console.log(error);
         }

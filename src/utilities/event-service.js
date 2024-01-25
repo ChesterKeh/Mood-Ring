@@ -1,7 +1,7 @@
 import * as eventAPI from "./event-api";
 
-export async function getEventsByDate(date){
-  const response = await eventAPI.getEventsByDate(date);
+export async function getEventsByDate(date, userid){
+  const response = await eventAPI.getEventsByDate(date, userid);
   return response;
 }
 
