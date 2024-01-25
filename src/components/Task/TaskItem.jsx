@@ -4,6 +4,7 @@ import { useState } from "react";
 import EditTaskModal from "../Modal/EditTaskModal";
 export default function TaskItem({ item, loadTasks }) {
   const [showEdit, setShowEdit] = useState(false);
+  const [checkedItems, setCheckedItems] = useState([]);
   const handleUpdate = (event) => {
     setShowEdit(true);
   };
@@ -30,9 +31,43 @@ export default function TaskItem({ item, loadTasks }) {
       console.log(error);
     }
   };
+
+  const handleCheckboxChange = (subItemId) => {
+    setCheckedItems((prevCheckedItems) => {
+      if (prevCheckedItems.includes(subItemId)) {
+        return prevCheckedItems.filter((id) => id !== subItemId);
+      } else {
+        return [...prevCheckedItems, subItemId];
+      }
+    });
+  };
+
+  const progress = (checkedItems.length / item.subtask.length) * 100;
+
   return (
     <>
       <h1>{item.title}</h1>
+      <div
+        style={{
+          marginTop: "10px",
+          width: "80%",
+          position: "relative",
+          backgroundColor: "grey",
+        }}
+      >
+        <div
+          style={{
+            width: `${progress}%`,
+            height: "20px",
+            backgroundColor: "black",
+            borderRadius: "4px",
+            padding: "3px",
+            fontSize: "10px",
+          }}
+        >
+          {Math.floor(progress)}%
+        </div>
+      </div>
       {item.subtask.map((sub) => (
         <div
           key={sub._id}
@@ -42,10 +77,17 @@ export default function TaskItem({ item, loadTasks }) {
             marginBottom: "6px",
           }}
         >
-          <input type="checkbox" id={sub.item} name={sub.item} />
+          <input
+            type="checkbox"
+            id={sub.item}
+            name={sub.item}
+            checked={checkedItems.includes(sub._id)}
+            onChange={() => handleCheckboxChange(sub._id)}
+          />
           <label>{sub.item}</label>
         </div>
       ))}
+
       <button onClick={handleUpdate}>edit</button>
       <button onClick={handleDelete}>delete</button>
       <EditTaskModal
