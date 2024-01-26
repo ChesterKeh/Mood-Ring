@@ -19,16 +19,8 @@ export default function CalendarDayBox({ user, date }){
     }, [date]);
 
     const loadEvents = async () => {
-        const newEventList = [];
         const response = await getEventsByDate(date, user._id);
-        newEventList.concat(response.events);
-        for (const friendId of user.linked_user_id){
-            const friendRes = await getEventsByDate(date, friendId);
-            if (friendRes.events){
-                newEventList.concat(friendRes.events);
-            }
-        }
-        setEvents(newEventList);
+        setEvents(response.events);
     }
 
     const loadJournals = async () => {

@@ -19,17 +19,12 @@ function MainPage({ user, setUser }) {
     const [tasks, setTasks] = useState([]);
     
     useEffect(() => {
-      setLoading(true);
-      async function loadPage(){
-        if (getToken() !== null){
-          setValidToken(true);
-        } else{
-          setValidToken(false);
-        }
-        loadTasks();
-        setLoading(false);
+      if (getToken() !== null){
+        setValidToken(true);
+      } else{
+        setValidToken(false);
       }
-      loadPage();
+      loadTasks();
     }, [selectedNavButton, currentDate]);
   
     const loadTasks = async () => {
@@ -67,7 +62,7 @@ function MainPage({ user, setUser }) {
               {selectedNavButton === "journal" ? <Journal /> : <></>}
               <div className="calendarPageFooter">
                   <MonthSpinner className="calendarPageFooterCol1" currentDate={currentDate} setCurrentDate={setCurrentDate}/>
-                  <CreateButton className="calendarPageFooterCol2" user={user} loadTasks={loadTasks}/>
+                  <CreateButton className="calendarPageFooterCol2" user={user} loadTasks={loadTasks} setSelectedNavButton={setSelectedNavButton} setCurrentDate={setCurrentDate}/>
               </div>
             </div>
         </>

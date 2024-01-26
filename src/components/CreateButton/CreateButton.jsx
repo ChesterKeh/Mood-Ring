@@ -4,7 +4,7 @@ import CreateEventModal from "../Modal/CreateEventModal";
 import CreateTaskModal from "../Modal/CreateTaskModal";
 import CreateJournalModal from "../Modal/CreateJournalModal";
 
-export default function CreateButton({ user, loadTasks }) {
+export default function CreateButton({ user, loadTasks, setSelectedNavButton, setCurrentDate }) {
   //https://www.npmjs.com/package/react-dropdown
   const dropdownOptions = [
     { value: "Event", label: "Event" },
@@ -42,7 +42,9 @@ export default function CreateButton({ user, loadTasks }) {
       <CreateEventModal
         user={user}
         showCreateEvent={showCreateEvent}
-        setShowCreateEvent={setShowCreateEvent}
+        setShowCreateEvent={setShowCreateEvent} 
+        setSelectedNavButton={setSelectedNavButton} 
+        setCurrentDate={setCurrentDate}
       />
       <CreateTaskModal
         user={user}
@@ -53,7 +55,9 @@ export default function CreateButton({ user, loadTasks }) {
       <CreateJournalModal
         user={user}
         showCreateJournal={showCreateJournal}
-        setShowCreateJournal={setShowCreateJournal}
+        setShowCreateJournal={setShowCreateJournal} 
+        setSelectedNavButton={setSelectedNavButton}
+        setCurrentDate={setCurrentDate}
       />
     </div>
   );
