@@ -4,10 +4,10 @@ import "./SignupForm.css";
 
 export default class SignUpForm extends Component {
   state = {
-    name: "asc",
-    email: "asc@asc",
-    password: "asc",
-    confirm: "asc",
+    name: "",
+    email: "",
+    password: "",
+    confirm: "",
     error: "",
   };
 

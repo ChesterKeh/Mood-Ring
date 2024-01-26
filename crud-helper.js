@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 require("./config/database");
 
@@ -115,42 +114,42 @@ const main = async () => {
 
   const initialUsers = await User.create([
     {
-      name: "User 1",
+      name: "Peter",
       email: "user1@example.com",
       password: "password123",
       linked_user_id: [],
       isPublic: true,
     },
     {
-      name: "User 2",
+      name: "John",
       email: "user2@example.com",
       password: "password456",
       linked_user_id: [],
       isPublic: false,
     },
     {
-      name: "User 3",
+      name: "Thedore",
       email: "user3@example.com",
       password: "password789",
       linked_user_id: [],
       isPublic: true,
     },
     {
-      name: "User 4",
+      name: "Macdonalds",
       email: "user4@example.com",
       password: "password012",
       linked_user_id: [],
       isPublic: false,
     },
     {
-      name: "User 5",
+      name: "Hannah",
       email: "user5@example.com",
       password: "password345",
       linked_user_id: [],
       isPublic: true,
     },
     {
-      name: "User 6",
+      name: "Nat",
       email: "user6@example.com",
       password: "password678",
       linked_user_id: [],
