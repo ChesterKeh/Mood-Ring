@@ -16,10 +16,16 @@ const userSchema = new Schema(
       minLength: 3,
       required: true,
     },
-    linked_user_id: {
-      type: String,
-      
-    }
+    linked_user_id: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    isPublic: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

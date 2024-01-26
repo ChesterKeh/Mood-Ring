@@ -4,7 +4,7 @@ import { createEvent } from "../../utilities/event-service"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function CreateEventModal({ user, showCreateEvent, setShowCreateEvent }){
+export default function CreateEventModal({ user, showCreateEvent, setShowCreateEvent, setSelectedNavButton, setCurrentDate }){
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [eventData, setEventData] = useState({});
@@ -34,6 +34,8 @@ export default function CreateEventModal({ user, showCreateEvent, setShowCreateE
         }
         const response = await createEvent(eventDataArray);
         setShowCreateEvent(false);
+        setSelectedNavButton("calendar");
+        setCurrentDate(currentDate);
     }
 
     const handleChange = (event) => {

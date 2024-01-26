@@ -49,12 +49,17 @@ export default function LoginForm({ setUser }) {
           <input
             name="email"
             type="email"
+            placeholder="Enter Text"
+            autoComplete="off"
           />
         </label>
         <br />
         <label>
           Password:
-          <input name="password" />
+          <input
+            name="password"
+            type="password"
+          />
         </label>
         <br />
         <button type="submit">Login</button>

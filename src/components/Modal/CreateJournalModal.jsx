@@ -5,21 +5,16 @@ import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function CreateJournalModal({
-  user,
-  showCreateJournal,
-  setShowCreateJournal,
-  loadJournals,
-}) {
-  const [startDate, setStartDate] = useState(new Date());
-  const [journalData, setJournalData] = useState({});
-  const dropdownOptions = [
-    { value: "Dreamy", label: "Dreamy" },
-    { value: "Energetic", label: "Energetic" },
-    { value: "Inspired", label: "Inspired" },
-    { value: "Calm", label: "Calm" },
-    { value: "Introspective", label: "Introspective" },
-  ];
+export default function CreateJournalModal({ user, showCreateJournal, setShowCreateJournal, loadJournals,setSelectedNavButton, setCurrentDate }){
+    const [startDate, setStartDate] = useState(new Date());
+    const [journalData, setJournalData] = useState({});
+    const dropdownOptions = [
+        { value: 'Dreamy', label: 'Dreamy' },
+        { value: 'Energetic', label: 'Energetic' },
+        { value: 'Inspired', label: 'Inspired' }, 
+        { value: 'Calm', label: 'Calm' }, 
+        { value: 'Introspective', label: 'Introspective' }
+    ];
 
   //For modal usage https://contactmentor.com/create-modal-react-js-overlay/
   const renderBackdrop = (props) => <div className="backdrop" {...props} />;
@@ -29,15 +24,16 @@ export default function CreateJournalModal({
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const dateData = { date: new Date(startDate.getTime()) };
-    const userData = { userid: user._id };
-    const response = await createJournal(
-      Object.assign({}, journalData, dateData, userData)
-    );
-    loadJournals();
-    setShowCreateJournal(false);
-  };
+
+      event.preventDefault();
+      const dateData = {"date" : new Date(startDate.getTime())};
+      const userData = {"userid": user._id};
+      const response = await createJournal(Object.assign({}, journalData, dateData, userData));
+      loadJournals();
+      setShowCreateJournal(false);
+      setSelectedNavButton("journal");
+      setCurrentDate(new Date(startDate.getTime()));
+  }
 
   const handleChange = (journal) => {
     setJournalData({
