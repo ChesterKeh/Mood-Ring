@@ -22,6 +22,11 @@ margin-top:20px;
     padding: 20px;
 }
 
+.calendarPage {
+    display:flex;
+    width:100%;
+}
+
 .calendarPageFooter{
     position: fixed;
     bottom: -20px;
