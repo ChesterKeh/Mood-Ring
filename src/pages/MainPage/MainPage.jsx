@@ -69,5 +69,6 @@ function MainPage({ user, setUser }) {
       );
     }
   }
-  
-  export default MainPage;
+}
+
+export default MainPage;

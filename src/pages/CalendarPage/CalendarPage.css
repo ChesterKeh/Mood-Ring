@@ -17,7 +17,6 @@
 
 .calendarPageFooter {
     grid-area: footer;
-    background-color: hotpink;
     display: grid;
     grid-template-columns: 4fr 1fr;
     grid-template-rows: 1fr;

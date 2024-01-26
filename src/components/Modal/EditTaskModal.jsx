@@ -48,8 +48,8 @@ export default function EditTaskModal({
   const editAction = async () => {
     try {
       const response = await updateTask(taskData);
-      loadTasks();
       setShowEditTask(false);
+      loadTasks();
     } catch (error) {
       console.log(error);
     }

@@ -1,4 +1,5 @@
 import AccountButton from "../AccountButton/AccountButton";
+import "./Navbar.css";
 
 export default function Navbar({ user, setSelectedNavButton, setUser}) {
   const onNavButtonClick = (event) => {
@@ -6,7 +7,7 @@ export default function Navbar({ user, setSelectedNavButton, setUser}) {
   }
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <button name="calendar" onClick={onNavButtonClick}>Calendar</button>
       <button name="journal" onClick={onNavButtonClick}>Journal</button>
       <AccountButton user={user} setUser={setUser}/>
