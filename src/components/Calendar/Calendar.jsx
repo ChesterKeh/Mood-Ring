@@ -29,5 +29,5 @@ export default function Calendar({ user, currentDate }){
             </div>
         </div>
     );
-  }
+  
 }
