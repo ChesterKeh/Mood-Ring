@@ -27,6 +27,7 @@ function MainPage({ user, setUser }) {
         setValidToken(false);
       }
       loadTasks();
+      loadJournals();
     }, [selectedNavButton, currentDate]);
   
     const loadTasks = async () => {
