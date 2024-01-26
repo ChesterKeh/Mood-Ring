@@ -44,7 +44,7 @@ function MainPage({ user, setUser }) {
       return (
         <>
             <div className="mainHeader">
-                <Navbar user={user} setSelectedNavButton={setSelectedNavButton}/>
+                <Navbar user={user} setSelectedNavButton={setSelectedNavButton} setUser={setUser}/>
             </div>
             <RingLoader
               color="#ffffff"
